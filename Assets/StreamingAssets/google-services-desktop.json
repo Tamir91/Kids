@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "838260520075",
+    "firebase_url": "https://project-1c5c7.firebaseio.com",
+    "project_id": "project-1c5c7",
+    "storage_bucket": "project-1c5c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838260520075:android:7730f6928e773eff",
+        "android_client_info": {
+          "package_name": "com.umd.kid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838260520075-o48dv4qluc00roibt5fsf0vaisbvrttb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5BJUZ2P52UaADPryo6Ba9d4jT2KXeUGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838260520075-o48dv4qluc00roibt5fsf0vaisbvrttb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
