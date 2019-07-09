@@ -32,9 +32,7 @@ public class CabinetView : BubbleElement {
 
     private void Start()
     {
-
-        SearchField = "Write phone number here";
-        //SetTextAboutKids();
+        
     }
   
     public void ShowCabinetPage()
@@ -58,7 +56,7 @@ public class CabinetView : BubbleElement {
     public void OnSearchClicked()
     {
         SearchField = CabinetCanvas.transform.GetChild(1).GetComponent<InputField>().text;
-        App.Notify(BubbleNotification.SearchPhoneNumberClicked, this);
+        App.Notify(BubbleNotification.LoadAllKids, this);
     }
 
     public void OnBackClicked()

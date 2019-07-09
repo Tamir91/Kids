@@ -26,8 +26,8 @@ public class CabinetModel : BubbleElement {
     /// <summary>
     /// This function set person form FireBase into view
     /// </summary>
-    /// <param name="key">Person phone number</param>
-    public void UpdateCabinetViewWithPerson(string key)
+    /// <param name="key">Kid phone number</param>
+    public void UpdateCabinetViewWithKid(string key)
     {
         FileLoader FileLoader = FindObjectOfType<FileLoader>();
         FileLoader.SendPersonRequestToFireBase(key);
@@ -36,10 +36,10 @@ public class CabinetModel : BubbleElement {
     /// <summary>
     /// This function set all persons form FireBase into view
     /// </summary>
-    public void UpdateCabinetViewWithAllPersons()
+    public void UpdateCabinetViewWithAllKids(string key)
     {
         Debug.Log("UpdateCabinetViewWithAllPersons");
         FileLoader FileLoader = FindObjectOfType<FileLoader>();
-        FileLoader.GetAllPersons();
+        FileLoader.GetAllKids(key);
     }
 }

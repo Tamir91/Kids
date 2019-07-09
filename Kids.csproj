@@ -239,6 +239,36 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.1f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.Analytics">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.App">
+      <HintPath>Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Auth">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Platform">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.TaskExtension">
+      <HintPath>Assets/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.MiniJson">
+      <HintPath>Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Sharpen">
+      <HintPath>Assets/Firebase/Plugins/Google.Sharpen.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Database">
+      <HintPath>Assets/Firebase/Plugins/Mono/Firebase.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Compat">
+      <HintPath>Assets/Parse/Plugins/Unity.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets/Parse/Plugins/Unity.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
@@ -250,36 +280,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Compat">
-      <HintPath>Assets/Parse/Plugins/Unity.Compat.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.MiniJson">
-      <HintPath>Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.App">
-      <HintPath>Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Platform">
-      <HintPath>Assets/Firebase/Plugins/Firebase.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Analytics">
-      <HintPath>Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Tasks">
-      <HintPath>Assets/Parse/Plugins/Unity.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.TaskExtension">
-      <HintPath>Assets/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Auth">
-      <HintPath>Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Database">
-      <HintPath>Assets/Firebase/Plugins/Mono/Firebase.Database.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Sharpen">
-      <HintPath>Assets/Firebase/Plugins/Google.Sharpen.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +304,8 @@
     <Compile Include="Assets\RestClient\Packages\RSG.Promise\PromiseHelpers.cs" />
     <Compile Include="Assets\RestClient\Packages\RSG.Promise\PromiseTimer.cs" />
     <Compile Include="Assets\RestClient\Packages\RSG.Promise\Tuple.cs" />
+    <Compile Include="Assets\Scripts\Entities\Admin.cs" />
+    <Compile Include="Assets\Scripts\Entities\Kid.cs" />
     <Compile Include="Assets\Scripts\GUI\AppGUIStyles.cs" />
     <Compile Include="Assets\Scripts\GUI\BubbleView.cs" />
     <Compile Include="Assets\Scripts\GUI\CabinetView.cs" />
@@ -314,10 +316,8 @@
     <Compile Include="Assets\Scripts\Models\BubbleModel.cs" />
     <Compile Include="Assets\Scripts\Models\BubbleNotification.cs" />
     <Compile Include="Assets\Scripts\Models\CabinetModel.cs" />
-    <Compile Include="Assets\Scripts\Models\CreateUser.cs" />
+    <Compile Include="Assets\Scripts\Models\KidModel.cs" />
     <Compile Include="Assets\Scripts\Models\LoginModel.cs" />
-    <Compile Include="Assets\Scripts\Models\Person.cs" />
-    <Compile Include="Assets\Scripts\Models\PersonModel.cs" />
     <Compile Include="Assets\Scripts\Models\SignUpModel.cs" />
     <Compile Include="Assets\Scripts\Tools\CSVFileController.cs" />
     <Compile Include="Assets\Scripts\Tools\FileLoader.cs" />

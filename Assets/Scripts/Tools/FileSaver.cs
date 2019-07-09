@@ -1,7 +1,7 @@
-﻿
+﻿using Firebase;
+using Firebase.Database;
+using Firebase.Unity.Editor;
 using Proyecto26;
-using System;
-//using UnityEditor;
 using UnityEngine;
 
 public class FileSaver : BubbleElement {
@@ -9,18 +9,12 @@ public class FileSaver : BubbleElement {
     #region Variable
     // Static Variables
     private static FileSaver Single;
-    private void LogMessage(string title, string message)
-    {
-#if UNITY_EDITOR
-        //EditorUtility.DisplayDialog(title, message, "Ok");
-#else
-		Debug.Log(message);
-#endif
-    }
-        // Public Variables
+    private DatabaseReference reference;
 
-        //Privte Variables
-    private string PersonRoute = "https://project-1c5c7.firebaseio.com/";
+    // Public Variables
+
+    //Privte Variables
+    private string Route = "https://project-1c5c7.firebaseio.com/";
 
 
     #endregion
@@ -36,50 +30,32 @@ public class FileSaver : BubbleElement {
             Destroy(gameObject);
         }
     }
-    // Use this for initialization
 
     private void Start()
     {
-        // // Firebase code not work for me
-        //Debug.Log(m.ToString());
-        //Debug.Log("FirebaseApp.DefaultInstance.SetEditorDatabaseUrl");
-        //FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://kids-62a38.firebaseio.com/");
-        //Reference = FirebaseDatabase.DefaultInstance.RootReference;
+        // Set up the Editor before calling into the realtime database.
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(Route);
+
+        // Get the root reference location of the database.
+        reference = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    // Need testing. Not Shure if it work
-    public void PutPersonToFireBase(Person NewPerson)
+    public void PutKidToFireBase(Kid Kid, string key)
     {
-        RestClient.Put<Person>(PersonRoute + NewPerson.PhoneNumber + ".json", NewPerson);
-        /*
-        RestClient.Put<Person>(new RequestHelper
-        {
-            Uri = PersonRoute,
-            Body = new Person(NewPerson),
-            Retries = 5,
-            RetrySecondsDelay = 1,
-            RetryCallback = (err, retries) => {
-                Debug.Log(string.Format("Retry #{0} Status {1}\nError: {2}", retries, err.StatusCode, err));
-            }
-        }, (err, res, body) => {
-            if (err != null)
-            {
-                this.LogMessage("Error", err.Message);
-            }
-            else
-            {
-                this.LogMessage("Success", res.Text);
-            }
-        });
-        */
+        //RestClient.Put<Kid>(Route + "kids/" +  key + "/" + Kid.PhoneNumber + ".json", Kid);
+        string json = JsonUtility.ToJson(Kid);
+        reference.Child("kids").Child(key + "key").Child(Kid.PhoneNumber).SetRawJsonValueAsync(json);
     }
 
-    public void PostPersonToFireBase(Person Person)
+    public void PostKidToFireBase(Kid Kid)
     {
-        //RestClient.Post(PersonRoute + Person.PhoneNumber + ".json", Person);
+        RestClient.Post<Kid>(Route, Kid);
+    }
 
-        RestClient.Post<Person>(PersonRoute, Person)
-        .Then(res => this.LogMessage("Success", JsonUtility.ToJson(res, true)))
-        .Catch(err => this.LogMessage("Error", err.Message));
+    public void PutAdminToFireBase(Admin admin)
+    {
+        //estClient.Put<Admin>(Route + "admin/" + admin.UserName + admin.UserPassword + ".json", admin);
+        string json = JsonUtility.ToJson(admin);
+        reference.Child("admin").Child(admin.UserName + admin.UserPassword).SetRawJsonValueAsync(json);
     }
 }

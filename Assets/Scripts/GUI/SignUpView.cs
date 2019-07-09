@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -80,10 +79,11 @@ public class SignUpView : BubbleElement
 
     public string GetPhoneNumber() => PhoneNumber;
 
-    public void OnSignUpClicked(){
-        SetData();
-        App.Notify(BubbleNotification.SignUpClicked, this);
+    public void OnSaveKidClicked(){    
+         SetData();
+         App.Notify(BubbleNotification.OnSaveKidClicked, this);
     }
+
 
     private void SetData()
     {
@@ -98,6 +98,14 @@ public class SignUpView : BubbleElement
 
         PhoneNumber = SignUpCanvas.transform.GetChild(4).GetComponent<InputField>().text;
         Email = SignUpCanvas.transform.GetChild(5).GetComponent<InputField>().text;
+    }
+
+    public void CleanInputFields()
+    {
+        SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text = "";
+        SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text = "";
+        SignUpCanvas.transform.GetChild(4).GetComponent<InputField>().text = "";
+        SignUpCanvas.transform.GetChild(5).GetComponent<InputField>().text = "";
     }
 
     public void OnGoToLogInPageClicked() => App.Notify(BubbleNotification.GoToLogInPageClicked, this);

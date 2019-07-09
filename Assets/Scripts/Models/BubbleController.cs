@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BubbleController : BubbleElement {
 #region variables
@@ -9,6 +7,7 @@ public class BubbleController : BubbleElement {
     // Private methods
     private enum AppState {AboutApp, Login, Signup, Cabinet};
     private AppState appState;
+    private Admin CurrAdmin;
 
     // Public methods
 
@@ -28,7 +27,8 @@ public class BubbleController : BubbleElement {
     
     void Start()
     {
-        appState = AppState.Cabinet;
+        //appState = AppState.AboutApp;
+        appState = AppState.AboutApp;
         ChangeAppState(appState);
     }
 
@@ -47,7 +47,7 @@ public class BubbleController : BubbleElement {
                     Debug.Log("AppState.Login:");
                     App.View
                         .LoginView
-                        .ShowLoginPage();
+                        .ShowLogInPage();
                     break;
                 }
             case AppState.Signup:
@@ -87,46 +87,77 @@ public class BubbleController : BubbleElement {
                     ChangeAppState(appState);
                     break;
                 }
-            case BubbleNotification.GoToCabinetClicked:
+            case BubbleNotification.AdminLoaded:
                 {
-                    appState = AppState.Cabinet;
+                    Debug.Log("BubbleController" + p_event_path);
+                    appState = AppState.Signup;
                     ChangeAppState(appState);
+
                     break;
                 }  
-            case BubbleNotification.SignUpClicked:
-                { 
-                    string FirstName = App.View
-                        .SignUpView
-                        .GetFirstName();
-                    string SecondName = App.View
-                       .SignUpView
-                       .GetSecondName();
-                    string Email = App.View
-                        .SignUpView
-                        .GetEmail();
-                    string Age = App.View
-                        .SignUpView
-                        .GetAge();
-                    string Gender = App.View
-                        .SignUpView
-                        .GetGender();
-                    string PhoneNumber = App.View
-                      .SignUpView
-                      .GetPhoneNumber();
+            case BubbleNotification.OnSaveKidClicked:
+                {
+                    var V = App.View.SignUpView;
+                    var key = CurrAdmin.UserName + CurrAdmin.UserPassword;
 
-                    Person Person = new Person(FirstName, SecondName, Age, Gender, PhoneNumber, Email);
                     App.Model
-                        .PersonModel
-                        .SaveUserPersonalData(Person);
+                       .KidModel
+                       .SaveKidPersonalData(
+                            V.GetFirstName(), V.GetSecondName(), V.GetAge(), V.GetGender(), V.GetPhoneNumber(), V.GetEmail(), key);
+                    
+                        V.CleanInputFields();
 
                     break;
                 }
-
-            case BubbleNotification.SearchPhoneNumberClicked:
+            case BubbleNotification.OnLogInClicked:
                 {
+
+                    Debug.Log("BubbleNotification.OnLogInClicked:");
+                    string userName = App.View
+                        .LoginView.GetCUserName();
+
+                    string userPassword = App.View
+                        .LoginView.GetCPassword();
+
+                    CurrAdmin = new Admin(userName, userPassword);
+
+                    App.Model
+                        .LoginModel
+                        .CheckIfAdminExsist(CurrAdmin);
+
+                    break;
+                }
+            case BubbleNotification.LoadAllKids:
+                {
+                    string key = CurrAdmin.UserName + CurrAdmin.UserPassword;
                     App.Model
                         .CabinetModel
-                        .UpdateCabinetViewWithAllPersons(/*App.View.CabinetView.SearchField*/);
+                        .UpdateCabinetViewWithAllKids(key);
+                    break;
+                }
+            case BubbleNotification.OnSignUpInLoginClicked:
+                {
+                    App.View
+                        .LoginView
+                        .ShowSignUpGUI();
+                    break;
+                }
+            case BubbleNotification.OnCreateProfileClicked:
+                { 
+                    string userName = App.View
+                        .LoginView.GetCUserName();
+
+                    string userPassword = App.View
+                        .LoginView.GetCPassword();
+
+                    Admin Admin = new Admin(userName, userPassword);
+
+                    if (App.View.LoginView.GetRegistrationInputCorection())
+                    {
+                        App.Model.LoginModel.CreateNewProfile(Admin);
+                    }
+
+                    App.View.LoginView.CleanAndHideSignUpGUI();
                     break;
                 }
         }

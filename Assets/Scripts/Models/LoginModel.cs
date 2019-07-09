@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LoginModel : BubbleElement {
     #region Variables
@@ -10,9 +8,7 @@ public class LoginModel : BubbleElement {
     // Public variables
     public static string Email = "";
     public static string Password = "";
-
-    // Private variables
-    private string LogInToAccountUrl = "http://localhost/FoamBubble/Login.php";
+    
     #endregion
 
     private void Awake()
@@ -27,10 +23,16 @@ public class LoginModel : BubbleElement {
         }
     }
 
-    public void LogIn(string email, string password)
+    public void CreateNewProfile(Admin Admin)
     {
-        Email = email;
-        Password = password;
-        
+        FileSaver FileSaver = FindObjectOfType<FileSaver>();
+        FileSaver.PutAdminToFireBase(Admin);
+    }
+
+    public void CheckIfAdminExsist(Admin Admin)
+    {
+        Debug.Log("CheckIfAdminExsist::" + Admin.UserName + " " + Admin.UserPassword);
+        FileLoader FileLoader = FindObjectOfType<FileLoader>();
+        FileLoader.SendAdminRequestToFireBase(Admin); 
     }
 }

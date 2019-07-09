@@ -7,6 +7,6 @@ public class BubbleModel : BubbleElement {
 
 	public LoginModel LoginModel { get { return FindObjectOfType<LoginModel>(); } }
     public SignUpModel SignUpModel { get { return FindObjectOfType<SignUpModel>(); } }
-    public PersonModel PersonModel { get { return FindObjectOfType<PersonModel>(); } }
+    public KidModel KidModel { get { return FindObjectOfType<KidModel>(); } }
     public CabinetModel CabinetModel { get { return FindObjectOfType<CabinetModel>(); } }
 }
