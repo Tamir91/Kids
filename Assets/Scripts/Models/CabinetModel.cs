@@ -7,7 +7,7 @@ public class CabinetModel : BubbleElement {
     // Staitic Variables
     private static CabinetModel Single;
     // Private Variables
-
+    private string filepath = "";
     //Public Variables
 
     #endregion
@@ -22,6 +22,19 @@ public class CabinetModel : BubbleElement {
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+#if UNITY_EDITOR
+        filepath = Application.dataPath + "/Members.csv";
+#elif UNITY_ANDROID
+        filepath = Application.persistentDataPath + "/Members.csv";
+#elif UNITY_IPHONE
+        filepath = Application.persistentDataPath + "/Members.csv";
+#else
+        filepath = Application.dataPath + "/Members.csv";
+#endif
     }
 
     /// <summary>

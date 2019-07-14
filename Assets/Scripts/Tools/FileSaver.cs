@@ -47,11 +47,6 @@ public class FileSaver : BubbleElement {
         reference.Child("kids").Child(key + "key").Child(Kid.PhoneNumber).SetRawJsonValueAsync(json);
     }
 
-    public void PostKidToFireBase(Kid Kid)
-    {
-        RestClient.Post<Kid>(Route, Kid);
-    }
-
     public void PutAdminToFireBase(Admin admin)
     {
         //estClient.Put<Admin>(Route + "admin/" + admin.UserName + admin.UserPassword + ".json", admin);

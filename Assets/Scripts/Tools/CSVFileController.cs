@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CSVFileController: BubbleElement {
     private static CSVFileController writeToCSV;
-    private readonly string PATH = "KidsList_" + ".csv";
+    private readonly string PATH = "/KidsList_" + ".csv";
 
     private void Awake()
     {

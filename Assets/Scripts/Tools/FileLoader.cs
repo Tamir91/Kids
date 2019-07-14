@@ -11,7 +11,8 @@ public class FileLoader : BubbleElement {
     // Private Variables
     private string BaseRoute = "https://project-1c5c7.firebaseio.com/";
     private DatabaseReference DatabaseReference;
-   
+    private DependencyStatus dependencyStatus;
+
 
     // Public Variables
     private Admin CurrAdmin { get; set; }
@@ -29,6 +30,27 @@ public class FileLoader : BubbleElement {
         {
             Destroy(gameObject);
         }
+
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
+            dependencyStatus = task.Result;
+            if (dependencyStatus == DependencyStatus.Available)
+            {
+                Debug.Log("DependencyStatus.Available");
+            }
+            else
+            {
+                Debug.LogError(
+                  "Could not resolve all Firebase dependencies: " + dependencyStatus);
+            }
+        });
+    }
+
+
+
+    private void Start()
+    {
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(BaseRoute);
+        DatabaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
     /// <summary>
@@ -38,7 +60,7 @@ public class FileLoader : BubbleElement {
     /// <returns>IEnumerator</returns>
     public void SendKidRequestToFireBase(string Key, string keyPhoneNumber)
     {
-        Debug.Log("SendPersonRequestToFireBase with key:" + keyPhoneNumber);
+        Debug.Log("SendKidRequestToFireBase with key:" + keyPhoneNumber);
         RestClient.Get<Kid>(BaseRoute + "kids/" + Key + "key/" + keyPhoneNumber + ".json").Then(response =>
         {
             App.View
@@ -92,8 +114,6 @@ public class FileLoader : BubbleElement {
 
     public void LoadAllKidsInExcelstring(string key)
     {
-        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(BaseRoute);
-        DatabaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
         string str = "";
         FirebaseDatabase.DefaultInstance
@@ -106,6 +126,7 @@ public class FileLoader : BubbleElement {
                 }
                 else if (task.IsCompleted)
                 {
+                    Debug.Log(key + "key");
                     Debug.Log("GetAllPersons::task.IsCompleted");
                     DataSnapshot DataSnapshot = task.Result;
                     var kids = DataSnapshot.Children;
