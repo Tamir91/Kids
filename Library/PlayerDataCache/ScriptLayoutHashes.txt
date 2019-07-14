@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/Arik/Desktop/kids.apk
+C:/Users/Arik/Desktop/kids2.apk
 SceneListBegin?
 Assets/Scenes/MainScene.unity
 SceneListEnd?

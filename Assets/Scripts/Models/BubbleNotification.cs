@@ -7,6 +7,8 @@ public class BubbleNotification : MonoBehaviour {
     public const  string OnLogInClicked = "login.clicked";
     public const string OnSaveKidClicked = "on.save.kid.clicked";
     public const string LoadAllKids = "search.phone.number.clicked";
+    public const string OnCreateExcelClicked = "create.excel.clicked";
+    public const string LoadKid = "load.kid.clicked";
     public const string CreateAccount = "create.account.clicked";
 
     // In LoginView

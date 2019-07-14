@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
-public class CSVFileController: MonoBehaviour {
+public class CSVFileController: BubbleElement {
     private static CSVFileController writeToCSV;
-    private readonly string PATH = "data.csv";
+    private readonly string PATH = "KidsList_" + ".csv";
 
     private void Awake()
     {
@@ -17,71 +17,29 @@ public class CSVFileController: MonoBehaviour {
             Destroy(gameObject);
     }
 
-    public void AddRecord(string Name, string SecondName, string Age, string NumberPhone, string Email, string Gender)
+    public void AddRecord(string KidsData)
     {
-        if (Name.Equals(""))
-            Name = "user";
-
-        try
-        {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(PATH, true))
-            {
-                file.WriteLine(Name + "," + SecondName + "," + Age + "," + NumberPhone + "," + Email);
-                //file.Close();
-            }
-        }
-        catch(Exception ex)
-        {
-            throw new ApplicationException("Error write string" + ex);
-        }
+        StartCoroutine(CrearArchivoCSV(KidsData));
     }
 
-    public string[] GetWinners(string filepath)
+    IEnumerator CrearArchivoCSV(string KidsData)
     {
-        string[] winneres = new string[200];
-        string[] userData;
-        string name = "user";
-        int score = 0;
+        string filePath = Application.persistentDataPath + PATH;
+        
+        var sr = File.CreateText(filePath);
+        
+        sr.WriteLine(KidsData);
 
-        string[] allRecords = GetAllRecords(filepath);
+        //Dejar como sólo de lectura
+        FileInfo fInfo = new FileInfo(filePath);
+        fInfo.IsReadOnly = true;
 
-        foreach(string line in allRecords)
-        {
-            userData = line.Split(new char[] { ',' });
-         
-            if(userData.Length > 2) {
-                if (userData[0] != null && userData[0] != "")
-                {
-                    name = userData[0];
-                }
+        //Cerrar
+        sr.Close();
 
-                if (userData[1] != null && !int.TryParse(userData[1], out score))
-                {
-                    score = 0;
-                }
+        yield return new WaitForSeconds(0.5f);//Esperamos para estar seguros que escriba el archivo
 
-                if (score >= 0)
-                    winneres[score] = name;
-            }
-            
-        }
-            return winneres;
-    }
-
-    private string[] GetAllRecords(string filepath)
-    {
-        try
-        {
-            using (System.IO.StreamReader file = new System.IO.StreamReader(@filepath))
-            {
-                string[] arr =  file.ReadToEnd().Split(new char[] { '\n' });
-                //file.Close();
-                return arr;
-            }
-        }
-        catch(Exception ex)
-        {
-            throw new ApplicationException("Error read srtings" + ex);
-        }
+        //Abrimos archivo recien creado
+        Application.OpenURL(filePath);
     }
 }

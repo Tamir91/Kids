@@ -10,11 +10,12 @@ public class CabinetView : BubbleElement {
     private static CabinetView Single;
 
     // Private Variables
-    private string text;
+   
 
     // Public Variables
     public GameObject CabinetCanvas;
     public string SearchField { get; set; }
+    public string TextWithKids { get; set; }
 
     #endregion
 
@@ -28,11 +29,6 @@ public class CabinetView : BubbleElement {
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        
     }
   
     public void ShowCabinetPage()
@@ -53,9 +49,8 @@ public class CabinetView : BubbleElement {
         }
     }
 
-    public void OnSearchClicked()
-    {
-        SearchField = CabinetCanvas.transform.GetChild(1).GetComponent<InputField>().text;
+    public void OnShowAllKidsClicked()
+    { 
         App.Notify(BubbleNotification.LoadAllKids, this);
     }
 
@@ -80,6 +75,17 @@ public class CabinetView : BubbleElement {
     public void SetTextAboutKids(string text)
     {
         CabinetCanvas.transform.GetChild(0).GetComponent<Text>().text = text;
-        this.text = text;
+        this.TextWithKids = text;
+    }
+
+    public void OnFindKidClicked()
+    {
+        SearchField = CabinetCanvas.transform.GetChild(1).GetComponent<InputField>().text;
+        App.Notify(BubbleNotification.LoadKid, this);
+    }
+
+    public void OnCreateExcelClicked()
+    {
+        App.Notify(BubbleNotification.OnCreateExcelClicked, this);
     }
 }

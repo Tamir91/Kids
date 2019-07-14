@@ -111,15 +111,9 @@ public class BubbleController : BubbleElement {
                 }
             case BubbleNotification.OnLogInClicked:
                 {
+                    var V = App.View.LoginView;
 
-                    Debug.Log("BubbleNotification.OnLogInClicked:");
-                    string userName = App.View
-                        .LoginView.GetCUserName();
-
-                    string userPassword = App.View
-                        .LoginView.GetCPassword();
-
-                    CurrAdmin = new Admin(userName, userPassword);
+                    CurrAdmin = new Admin(V.GetCUserName(), V.GetCPassword());
 
                     App.Model
                         .LoginModel
@@ -135,6 +129,15 @@ public class BubbleController : BubbleElement {
                         .UpdateCabinetViewWithAllKids(key);
                     break;
                 }
+            case BubbleNotification.LoadKid:
+                {
+                    string key = CurrAdmin.UserName + CurrAdmin.UserPassword;
+                    string phoneNumber = App.View.CabinetView.SearchField;
+                    App.Model
+                        .CabinetModel
+                        .UpdateCabinetViewWithKid(key, phoneNumber);
+                    break;
+                }
             case BubbleNotification.OnSignUpInLoginClicked:
                 {
                     App.View
@@ -143,7 +146,7 @@ public class BubbleController : BubbleElement {
                     break;
                 }
             case BubbleNotification.OnCreateProfileClicked:
-                { 
+                {
                     string userName = App.View
                         .LoginView.GetCUserName();
 
@@ -160,6 +163,12 @@ public class BubbleController : BubbleElement {
                     App.View.LoginView.CleanAndHideSignUpGUI();
                     break;
                 }
+            case BubbleNotification.OnCreateExcelClicked:
+                {
+                    string key = CurrAdmin.UserName + CurrAdmin.UserPassword;
+                    App.Model.CabinetModel.SaveInExcel(key);
+                    break;
+                }          
         }
     }
 }

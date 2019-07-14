@@ -47,7 +47,7 @@ public class LogInView : BubbleElement
 
     private void CheckIfUserInputCorrect()
     {
-        if (LogInCanvas.transform.GetChild(5).GetComponent<InputField>().IsActive())
+        if (LogInCanvas.transform.GetChild(5).GetComponent<InputField>().IsActive())//SignUp mode
         {
             if (CPassword.Equals(ConfirmPassword) && CPassword.Length > 0 && CUserName.Length > 0)
             {
@@ -58,6 +58,14 @@ public class LogInView : BubbleElement
             {
                 LogInCanvas.transform.GetChild(2).GetComponent<Button>().interactable = false;
                 isRegistrationInputCorrect = false;
+            }
+        }
+        else//LogInMode
+        {
+            if(CUserName.Length > 0 && CPassword.Length > 0)
+            {
+                LogInCanvas.transform.GetChild(2).GetComponent<Button>().interactable = true;
+                isRegistrationInputCorrect = true;
             }
         }
     }
@@ -83,7 +91,7 @@ public class LogInView : BubbleElement
     public void OnBackClicked()
     {
         CleanAndHideSignUpGUI();
-        StartCoroutine(HideLogInPage());
+        //StartCoroutine(HideLogInPage());
     }
 
     private IEnumerator HideLogInPage()
@@ -109,7 +117,7 @@ public class LogInView : BubbleElement
         LogInCanvas.transform.GetChild(4).GetComponent<Button>().gameObject.SetActive(false);//SignUp button
         LogInCanvas.transform.GetChild(5).GetComponent<InputField>().gameObject.SetActive(true);//ConfirmPassword field
 
-        LogInCanvas.transform.GetChild(2).GetComponent<Button>().interactable = false;
+        //LogInCanvas.transform.GetChild(2).GetComponent<Button>().interactable = false;
         LogInCanvas.transform.GetChild(2).GetComponent<Button>()
             .transform.GetChild(0).GetComponent<Text>().text = "ןובשח רוצ";//LogIn Button
     }
@@ -127,7 +135,7 @@ public class LogInView : BubbleElement
         LogInCanvas.transform.GetChild(5).GetComponent<InputField>().gameObject.SetActive(false);//ConfirmPassword field   
     }
 
-    public void OnCreateProfileClicked()
+    public void OnLogInSigUpClicked()
     {
         if (LogInCanvas.transform.GetChild(2).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text == "ןובשח רוצ")
         {
@@ -139,12 +147,6 @@ public class LogInView : BubbleElement
             // Button work like log in to admin profile.
             App.Notify(BubbleNotification.OnLogInClicked, this);
         }
-    }
-
-    public void OnLogInClicked()
-    {
-       
-        
     }
 
     public string GetCUserName()

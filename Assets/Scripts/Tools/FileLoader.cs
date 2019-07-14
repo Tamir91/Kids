@@ -11,12 +11,13 @@ public class FileLoader : BubbleElement {
     // Private Variables
     private string BaseRoute = "https://project-1c5c7.firebaseio.com/";
     private DatabaseReference DatabaseReference;
+   
 
     // Public Variables
     private Admin CurrAdmin { get; set; }
 
     #endregion
-    // Use this for initialization
+
 
     private void Awake()
     {
@@ -35,10 +36,10 @@ public class FileLoader : BubbleElement {
     /// </summary>
     /// <param name="keyPhoneNumber">Kid phone number</param>
     /// <returns>IEnumerator</returns>
-    public void SendPersonRequestToFireBase(string keyPhoneNumber)
+    public void SendKidRequestToFireBase(string Key, string keyPhoneNumber)
     {
         Debug.Log("SendPersonRequestToFireBase with key:" + keyPhoneNumber);
-        RestClient.Get<Kid>(BaseRoute + keyPhoneNumber + ".json").Then(response =>
+        RestClient.Get<Kid>(BaseRoute + "kids/" + Key + "key/" + keyPhoneNumber + ".json").Then(response =>
         {
             App.View
             .CabinetView
@@ -66,9 +67,9 @@ public class FileLoader : BubbleElement {
                   }
                   else if (task.IsCompleted)
                   {
-                    
-                    DataSnapshot snapshot = task.Result;
-                    var kids = snapshot.Children;
+                    Debug.Log("GetAllPersons::task.IsCompleted");
+                    DataSnapshot DataSnapshot = task.Result;
+                    var kids = DataSnapshot.Children;
 
                     foreach(var pointer in kids)
                     {
@@ -80,10 +81,49 @@ public class FileLoader : BubbleElement {
                         str += pointer.Child("Email").Value.ToString() + "\n";
                     }
 
-                    App.View
+                        App.View
                         .CabinetView
                         .SetTextAboutKids(str);
+
+                    Debug.Log(str);                    
                   }
+            });
+    }
+
+    public void LoadAllKidsInExcelstring(string key)
+    {
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(BaseRoute);
+        DatabaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        string str = "";
+        FirebaseDatabase.DefaultInstance
+            .GetReference("").Child("kids").Child(key + "key")
+            .GetValueAsync().ContinueWith(task => {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("GetAllPersons::task.IsFaulted");
+                    // Handle the error...
+                }
+                else if (task.IsCompleted)
+                {
+                    Debug.Log("GetAllPersons::task.IsCompleted");
+                    DataSnapshot DataSnapshot = task.Result;
+                    var kids = DataSnapshot.Children;
+
+                    foreach (var pointer in kids)
+                    {
+                        str += pointer.Child("FirstName").Value.ToString() + ",";
+                        str += pointer.Child("SecondName").Value.ToString() + ",";
+                        str += pointer.Child("Age").Value.ToString() + ",";
+                        str += pointer.Child("Gender").Value.ToString() + ",";
+                        str += pointer.Child("PhoneNumber").Value.ToString() + ",";
+                        str += pointer.Child("Email").Value.ToString() + "\n";
+                    }
+
+                    var CsvController = FindObjectOfType<CSVFileController>();
+                    CsvController.AddRecord(str);
+
+                }
             });
     }
 

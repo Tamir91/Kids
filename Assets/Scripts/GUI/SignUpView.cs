@@ -51,21 +51,26 @@ public class SignUpView : BubbleElement
 
     public void ShowSignUpPage()
     {
-        StartCoroutine(MoveSignUpPage());
+        StartCoroutine(MoveSignUpPage(400f, 640f));
     }
 
-    private IEnumerator MoveSignUpPage()
+    public void HideSignUp()
+    {
+        StartCoroutine(MoveSignUpPage(-400f, 640f));
+    }
+
+    private IEnumerator MoveSignUpPage(float x, float y, float maxDistanceDelta = 50f)
     {
         Debug.Log("MoveSignUpPage");
         var rect = SignUpCanvas.GetComponent<RectTransform>();
-        Vector2 newPos = new Vector2(400f, 640f);
+        Vector2 newPos = new Vector2(x, y);
 
         while(rect.anchoredPosition != newPos)
         {
-            rect.anchoredPosition = Vector3.MoveTowards(rect.anchoredPosition, newPos, 50f);
+            rect.anchoredPosition = Vector3.MoveTowards(rect.anchoredPosition, newPos, maxDistanceDelta);
             yield return null;
         }
-    }
+    } 
 
     public string GetFirstName() => FirstName;
 
@@ -79,11 +84,26 @@ public class SignUpView : BubbleElement
 
     public string GetPhoneNumber() => PhoneNumber;
 
-    public void OnSaveKidClicked(){    
-         SetData();
-         App.Notify(BubbleNotification.OnSaveKidClicked, this);
+    public void OnSaveKidClicked()
+    {
+        SetData();
+        if (PhoneNumber == "")
+        {
+            ChangePlaceholdersColor(Color.red);   
+        }
+        else
+        {
+            ChangePlaceholdersColor(Color.grey);
+            App.Notify(BubbleNotification.OnSaveKidClicked, this);
+        }   
     }
 
+    private void ChangePlaceholdersColor(Color Color)
+    {
+        SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().placeholder.GetComponent<Text>().color = Color;
+        SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().placeholder.GetComponent<Text>().color = Color;
+        SignUpCanvas.transform.GetChild(4).GetComponent<InputField>().placeholder.GetComponent<Text>().color = Color;
+    }
 
     private void SetData()
     {
@@ -110,5 +130,5 @@ public class SignUpView : BubbleElement
 
     public void OnGoToLogInPageClicked() => App.Notify(BubbleNotification.GoToLogInPageClicked, this);
 
-    public void OnStartSignUpViewClicked() => App.Notify(BubbleNotification.GoToSignUpClicked, this);
+    //public void OnStartSignUpViewClicked() => App.Notify(BubbleNotification.GoToSignUpClicked, this);
 }
