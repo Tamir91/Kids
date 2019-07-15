@@ -42,15 +42,15 @@ public class FileSaver : BubbleElement {
 
     public void PutKidToFireBase(Kid Kid, string key)
     {
-        //RestClient.Put<Kid>(Route + "kids/" +  key + "/" + Kid.PhoneNumber + ".json", Kid);
-        string json = JsonUtility.ToJson(Kid);
-        reference.Child("kids").Child(key + "key").Child(Kid.PhoneNumber).SetRawJsonValueAsync(json);
+        RestClient.Put<Kid>(Route + "kids/" +  key + "key" + "/" + Kid.PhoneNumber + ".json", Kid);
+        //string json = JsonUtility.ToJson(Kid);
+        //reference.Child("kids").Child(key + "key").Child(Kid.PhoneNumber).SetRawJsonValueAsync(json);
     }
 
     public void PutAdminToFireBase(Admin admin)
     {
-        //estClient.Put<Admin>(Route + "admin/" + admin.UserName + admin.UserPassword + ".json", admin);
-        string json = JsonUtility.ToJson(admin);
-        reference.Child("admin").Child(admin.UserName + admin.UserPassword).SetRawJsonValueAsync(json);
+        RestClient.Put<Admin>(Route + "admin/" + admin.UserName + admin.UserPassword + ".json", admin);
+        //string json = JsonUtility.ToJson(admin);
+        //reference.Child("admin").Child(admin.UserName + admin.UserPassword).SetRawJsonValueAsync(json);
     }
 }

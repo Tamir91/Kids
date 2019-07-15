@@ -142,7 +142,7 @@ public class FileLoader : BubbleElement {
                     }
 
                     var CsvController = FindObjectOfType<CSVFileController>();
-                    CsvController.AddRecord(str);
+                    CsvController.Save(str);
 
                 }
             });

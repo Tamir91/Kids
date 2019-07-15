@@ -320,8 +320,10 @@
     <Compile Include="Assets\Scripts\Models\LoginModel.cs" />
     <Compile Include="Assets\Scripts\Models\SignUpModel.cs" />
     <Compile Include="Assets\Scripts\Tools\CSVFileController.cs" />
+    <Compile Include="Assets\Scripts\Tools\CsvReadWrite.cs" />
     <Compile Include="Assets\Scripts\Tools\FileLoader.cs" />
     <Compile Include="Assets\Scripts\Tools\FileSaver.cs" />
+    <Compile Include="Assets\Scripts\Tools\SharingTool.cs" />
     <Compile Include="Assets\Scripts\Tools\UserRegisrator.cs" />
     <Compile Include="Assets\Scripts\Tools\Web.cs" />
   </ItemGroup>
