@@ -51,12 +51,12 @@ public class SignUpView : BubbleElement
 
     public void ShowSignUpPage()
     {
-        StartCoroutine(MoveSignUpPage(400f, 640f));
+        StartCoroutine(MoveSignUpPage(400f, 250f));
     }
 
     public void HideSignUp()
     {
-        StartCoroutine(MoveSignUpPage(-400f, 640f));
+        StartCoroutine(MoveSignUpPage(-400f, 250f));
     }
 
     private IEnumerator MoveSignUpPage(float x, float y, float maxDistanceDelta = 50f)

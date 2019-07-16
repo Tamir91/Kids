@@ -79,7 +79,7 @@ public class LogInView : BubbleElement
     {
         Debug.Log("ShowLogInPage");
         var rect = LogInCanvas.GetComponent<RectTransform>();
-        Vector2 newPos = new Vector2(400f, 640f);
+        Vector2 newPos = new Vector2(400f, 250f);
 
         while (rect.anchoredPosition != newPos)
         {
@@ -98,7 +98,7 @@ public class LogInView : BubbleElement
     {
         Debug.Log("MoveBackSignUpPage");
         var rect = LogInCanvas.GetComponent<RectTransform>();
-        Vector2 newPos = new Vector2(-400f, 640f);
+        Vector2 newPos = new Vector2(-400f, 250f);
 
         while (rect.anchoredPosition != newPos)
         {
