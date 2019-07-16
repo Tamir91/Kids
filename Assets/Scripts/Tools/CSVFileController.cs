@@ -19,18 +19,20 @@ public class CSVFileController: BubbleElement {
 
     }
 
- 
 
-    public void Save(string str)
+
+    public void Save(string[] arr)
     {
-        //StreamWriter outStream = File.CreateText(PATH);
-        //outStream.WriteLine(str);
+        string delimiter = ",";
+        int length = arr.GetLength(0);
 
-        //outStream.Close();
+        StringBuilder sb = new StringBuilder();
 
-        //test
-        //string[] arr = { "111", "222", "333" };
+        for (int index = 0; index < length; index++)
+            sb.AppendLine(string.Join(delimiter, arr[index]));
+
+       
         var CsvReadWrite = FindObjectOfType<CsvReadWrite>();
-        CsvReadWrite.Save(str);
+        CsvReadWrite.Save(sb.ToString());
     }
 }

@@ -7,7 +7,9 @@ public class SignUpView : BubbleElement
     #region Variables
     //Static variables
     private static string FirstName = "";
+    private string BufferFirstName;
     private static string SecondName = "";
+    private string BufferSecondName;
     private static string Gender = "";
     private static string PhoneNumber = "";
     private static string Age = "";
@@ -19,7 +21,9 @@ public class SignUpView : BubbleElement
     private string SubscribeString = "המשרה";
     private string SaveString = "רומש";
     private string FirstNameString = "יטרפ םש";
+    private int LengthFirstName = 0;
     private string SecondNameString = "החפשמה םש";
+    private int LengthSecondName = 0;
     private string EmailString = "ינורטקלא ראוד";
     private string AgeString = "ליג";
     private string PhoneNumberString = "ןופאלפ רפסמ";
@@ -49,14 +53,64 @@ public class SignUpView : BubbleElement
 
     }
 
+    private void Update()
+    {
+        HebrewSwopFirstName();
+        HebrewSwopSecondName();
+    }
+
+    private void HebrewSwopFirstName()
+    {
+
+            string templ = SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text;
+
+            if (templ.Length > 0 && templ.Length > LengthFirstName)
+            {
+                char ch = templ[templ.Length - 1];
+                templ = templ.Remove(templ.Length - 1, 1);
+                templ = ch + templ;
+                SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text = templ;
+            }
+            else if (templ.Length > 0 && templ.Length < LengthFirstName)
+            {
+                templ = BufferFirstName.Remove(0, 1);
+                SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text = templ;
+            }
+
+            LengthFirstName = templ.Length;
+            BufferFirstName = templ;    
+    }
+
+    private void HebrewSwopSecondName()
+    {
+
+        string templ = SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text;
+
+        if (templ.Length > 0 && templ.Length > LengthSecondName)
+        {
+            char ch = templ[templ.Length - 1];
+            templ = templ.Remove(templ.Length - 1, 1);
+            templ = ch + templ;
+            SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text = templ;
+        }
+        else if (templ.Length > 0 && templ.Length < LengthSecondName)
+        {
+            templ = BufferSecondName.Remove(0, 1);
+            SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text = templ;
+        }
+
+        LengthSecondName = templ.Length;
+        BufferSecondName = templ;
+    }
+
     public void ShowSignUpPage()
     {
-        StartCoroutine(MoveSignUpPage(400f, 250f));
+        StartCoroutine(MoveSignUpPage(400f, 225f));
     }
 
     public void HideSignUp()
     {
-        StartCoroutine(MoveSignUpPage(-400f, 250f));
+        StartCoroutine(MoveSignUpPage(-400f, 225f));
     }
 
     private IEnumerator MoveSignUpPage(float x, float y, float maxDistanceDelta = 50f)

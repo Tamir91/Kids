@@ -63,9 +63,10 @@ public class FileLoader : BubbleElement {
         Debug.Log("SendKidRequestToFireBase with key:" + keyPhoneNumber);
         RestClient.Get<Kid>(BaseRoute + "kids/" + Key + "key/" + keyPhoneNumber + ".json").Then(response =>
         {
+            string text = "לאוד                דיינ          ןימ   ליג   החפשמה םש     םש\n\n";
             App.View
             .CabinetView
-            .SetTextAboutKids(response.ToString());
+            .SetTextAboutKids(text + response.ToString());
         });
     }
 
@@ -78,7 +79,7 @@ public class FileLoader : BubbleElement {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(BaseRoute);
         DatabaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        string str = "";
+        string str = "לאוד                דיינ          ןימ   ליג   החפשמה םש     םש\n\n";
         FirebaseDatabase.DefaultInstance
             .GetReference("").Child("kids").Child(key + "key")
             .GetValueAsync().ContinueWith(task => { 
@@ -95,12 +96,12 @@ public class FileLoader : BubbleElement {
 
                     foreach(var pointer in kids)
                     {
-                        str += pointer.Child("FirstName").Value.ToString() + " ";
-                        str += pointer.Child("SecondName").Value.ToString() + " ";
-                        str += pointer.Child("Age").Value.ToString() + " ";
-                        str += pointer.Child("Gender").Value.ToString() + " ";
-                        str += pointer.Child("PhoneNumber").Value.ToString() + " ";
-                        str += pointer.Child("Email").Value.ToString() + "\n";
+                        str += pointer.Child("Email").Value.ToString() + "\t\t";
+                        str += pointer.Child("PhoneNumber").Value.ToString() + "\t\t";
+                        str += pointer.Child("Gender").Value.ToString() + "\t\t";
+                        str += pointer.Child("Age").Value.ToString() + "\t\t\t";
+                        str += pointer.Child("SecondName").Value.ToString() + "\t\t";
+                        str += pointer.Child("FirstName").Value.ToString() + "\n";        
                     }
 
                         App.View
@@ -115,7 +116,8 @@ public class FileLoader : BubbleElement {
     public void LoadAllKidsInExcelstring(string key)
     {
 
-        string str = "";
+        string[] arr = new string[6];
+
         FirebaseDatabase.DefaultInstance
             .GetReference("").Child("kids").Child(key + "key")
             .GetValueAsync().ContinueWith(task => {
@@ -130,20 +132,20 @@ public class FileLoader : BubbleElement {
                     Debug.Log("GetAllPersons::task.IsCompleted");
                     DataSnapshot DataSnapshot = task.Result;
                     var kids = DataSnapshot.Children;
+                    
+                    var CsvController = FindObjectOfType<CSVFileController>();
 
                     foreach (var pointer in kids)
                     {
-                        str += pointer.Child("FirstName").Value.ToString() + ",";
-                        str += pointer.Child("SecondName").Value.ToString() + ",";
-                        str += pointer.Child("Age").Value.ToString() + ",";
-                        str += pointer.Child("Gender").Value.ToString() + ",";
-                        str += pointer.Child("PhoneNumber").Value.ToString() + ",";
-                        str += pointer.Child("Email").Value.ToString() + "\n";
+                        arr[0] = pointer.Child("FirstName").Value.ToString();
+                        arr[1] = pointer.Child("SecondName").Value.ToString();
+                        arr[2] = pointer.Child("Age").Value.ToString();
+                        arr[3] = pointer.Child("Gender").Value.ToString();
+                        arr[4] = pointer.Child("PhoneNumber").Value.ToString();
+                        arr[5] = pointer.Child("Email").Value.ToString();
+
+                        CsvController.Save(arr);
                     }
-
-                    var CsvController = FindObjectOfType<CSVFileController>();
-                    CsvController.Save(str);
-
                 }
             });
     }

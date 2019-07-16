@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
-public class BubbleController : BubbleElement {
-#region variables
+public class BubbleController : BubbleElement
+{
+    #region variables
     // Static methods
     private static BubbleController Controller;
     // Private methods
-    private enum AppState {AboutApp, Login, Signup, Cabinet};
+    private enum AppState { AboutApp, Login, Signup, Cabinet };
     private AppState appState;
     private Admin CurrAdmin;
 
@@ -15,7 +16,7 @@ public class BubbleController : BubbleElement {
 
     private void Awake()
     {
-        if(Controller == null)
+        if (Controller == null)
         {
             Controller = this;
         }
@@ -24,7 +25,7 @@ public class BubbleController : BubbleElement {
             Destroy(gameObject);
         }
     }
-    
+
     void Start()
     {
         //appState = AppState.AboutApp;
@@ -32,7 +33,6 @@ public class BubbleController : BubbleElement {
         ChangeAppState(appState);
     }
 
-    
     void ChangeAppState(AppState appState)
     {
         switch (appState)
@@ -66,10 +66,10 @@ public class BubbleController : BubbleElement {
                        .ShowCabinetPage();
                     break;
                 }
-                
+
         }
     }
-    
+
 
     public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
     {
@@ -94,7 +94,7 @@ public class BubbleController : BubbleElement {
                     ChangeAppState(appState);
 
                     break;
-                }  
+                }
             case BubbleNotification.OnSaveKidClicked:
                 {
                     var V = App.View.SignUpView;
@@ -104,8 +104,8 @@ public class BubbleController : BubbleElement {
                        .KidModel
                        .SaveKidPersonalData(
                             V.GetFirstName(), V.GetSecondName(), V.GetAge(), V.GetGender(), V.GetPhoneNumber(), V.GetEmail(), key);
-                    
-                        V.CleanInputFields();
+
+                    V.CleanInputFields();
 
                     break;
                 }
@@ -168,8 +168,15 @@ public class BubbleController : BubbleElement {
                     string key = CurrAdmin.UserName + CurrAdmin.UserPassword;
                     App.Model.CabinetModel.SaveInExcel(key);
                     break;
-                }          
+                }
         }
     }
+
+    public void OnExitClicked()
+    {
+        Application.Quit();
+    }
 }
+
+
  

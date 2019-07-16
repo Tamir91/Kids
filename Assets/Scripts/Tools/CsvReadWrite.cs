@@ -10,15 +10,12 @@ public class CsvReadWrite : MonoBehaviour
     private string delimiter = ",";
 
     private int length;
-    void Start()
-    {
-        PreparePath();
-    }
 
-    private void PreparePath()
+
+    public void Save(string data)
     {
 #if UNITY_EDITOR
-        filepath = Application.dataPath + "/Kids List.csv";
+        filepath = Application.dataPath + "/Kids List.xls";
 #elif UNITY_ANDROID
         filepath = Application.persistentDataPath + "/Members.csv";
 #elif UNITY_IPHONE
@@ -27,35 +24,19 @@ public class CsvReadWrite : MonoBehaviour
         filepath = Application.dataPath + "/Members.csv";
 #endif
 
-        string[] rowDataTemp = new string[9];
-        rowDataTemp[0] = "Name";
-        rowDataTemp[1] = "Specialty";
-        rowDataTemp[2] = "Country";
-        rowDataTemp[3] = "Email";
-        rowDataTemp[4] = "Receive news and updates";
-        rowDataTemp[5] = "Question 1";
-        rowDataTemp[6] = "Question 2";
-        rowDataTemp[7] = "Question 3";
-        rowDataTemp[8] = "Data";
-
-        length = rowDataTemp.Length;
-
         if (!File.Exists(filepath))
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(string.Join(delimiter, rowDataTemp));
-
             StreamWriter outStream = File.CreateText(filepath);
-            outStream.WriteLine(sb);
             outStream.Close();
         }
-    }
+        if (File.Exists(filepath))
+        {
+            Debug.Log("Save::In");
 
-    public void Save(string data)
-    {
-        Debug.Log("Save::In");
-        //StringBuilder sb = new StringBuilder();
-        //sb.AppendLine(string.Join(delimiter, data));
-        File.AppendAllText(filepath, data);
+            StreamWriter outStream = File.CreateText(filepath);
+            outStream.WriteLine(data);
+            outStream.Close();
+        }
+       
     }
 }

@@ -40,7 +40,7 @@ public class CabinetView : BubbleElement {
     {
         Debug.Log("MoveCabinetPage");
         var rect = CabinetCanvas.GetComponent<RectTransform>();
-        Vector2 newPos = new Vector2(400f, 250f);
+        Vector2 newPos = new Vector2(400f, 225f);
 
         while (rect.anchoredPosition != newPos)
         {
@@ -63,7 +63,7 @@ public class CabinetView : BubbleElement {
     {
         Debug.Log("MoveCabinetPage");
         var rect = CabinetCanvas.GetComponent<RectTransform>();
-        Vector2 newPos = new Vector2(-400f, 250f);
+        Vector2 newPos = new Vector2(-400f, 225f);
 
         while (rect.anchoredPosition != newPos)
         {

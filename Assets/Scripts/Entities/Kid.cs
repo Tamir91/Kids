@@ -31,7 +31,7 @@ public class Kid
     }
 
     override
-    public string ToString() => FirstName + " " + SecondName + " " + Age + " " + Gender  + " " + PhoneNumber + " " + Email;
+    public string ToString() => Email + "\t" + PhoneNumber + "\t\t" + Gender + "\t\t" + Age + "\t\t\t" + SecondName + "\t\t" + FirstName;
 }
 
 
