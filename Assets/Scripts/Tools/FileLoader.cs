@@ -9,7 +9,7 @@ public class FileLoader : BubbleElement {
     // Static Variables
     private static FileLoader Single;
     // Private Variables
-    private string BaseRoute = "https://project-1c5c7.firebaseio.com/";
+   
     private DatabaseReference DatabaseReference;
     private DependencyStatus dependencyStatus;
 
