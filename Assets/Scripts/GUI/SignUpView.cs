@@ -164,8 +164,7 @@ public class SignUpView : BubbleElement
         FirstName = SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text;
         SecondName = SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text;
 
-        Age = SignUpCanvas.transform.GetChild(2).GetComponent<Dropdown>()
-            .options[SignUpCanvas.transform.GetChild(2).GetComponent<Dropdown>().value].text;
+        Age = SignUpCanvas.transform.GetChild(2).GetComponent<InputField>().text;
 
         Gender = SignUpCanvas.transform.GetChild(3).GetComponent<Dropdown>()
             .options[SignUpCanvas.transform.GetChild(3).GetComponent<Dropdown>().value].text;
@@ -178,6 +177,7 @@ public class SignUpView : BubbleElement
     {
         SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text = "";
         SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text = "";
+        SignUpCanvas.transform.GetChild(2).GetComponent<InputField>().text = "";
         SignUpCanvas.transform.GetChild(4).GetComponent<InputField>().text = "";
         SignUpCanvas.transform.GetChild(5).GetComponent<InputField>().text = "";
     }

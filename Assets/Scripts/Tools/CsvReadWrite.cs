@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class CsvReadWrite : MonoBehaviour
 {
     private string filepath;
-    private string delimiter = ",";
-
-    private int length;
-
 
     public void Save(string data)
     {
@@ -23,20 +20,22 @@ public class CsvReadWrite : MonoBehaviour
 #else
         filepath = Application.dataPath + "/Members.csv";
 #endif
-
-        if (!File.Exists(filepath))
+        try
         {
-            StreamWriter outStream = File.CreateText(filepath);
-            outStream.Close();
+            if (!File.Exists(filepath)){
+                using (StreamWriter file = new StreamWriter(filepath, true))
+                {
+                    file.WriteLine("דואל,נייד,מין,גיל,שם משפחה,שם\n");
+                }
+            }
+            using (StreamWriter file = new StreamWriter(filepath, true))
+            {
+                file.WriteLine(data);
+            }
         }
-        if (File.Exists(filepath))
+        catch (Exception ex)
         {
-            Debug.Log("Save::In");
-
-            StreamWriter outStream = File.CreateText(filepath);
-            outStream.WriteLine(data);
-            outStream.Close();
+            throw new ApplicationException("Error write string" + ex);
         }
-       
     }
 }

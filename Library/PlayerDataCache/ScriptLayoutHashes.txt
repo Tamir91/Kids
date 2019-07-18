@@ -1,6 +1,6 @@
-WindowsStandalone
+Android
 PlayerPath?
-C:/Users/Arik/Desktop/KidsDataBase.exe
+C:/Users/Arik/Desktop/kids-landscape.apk
 SceneListBegin?
 Assets/Scenes/MainScene.unity
 SceneListEnd?

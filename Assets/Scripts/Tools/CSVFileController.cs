@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CSVFileController: BubbleElement {
     private static CSVFileController writeToCSV;
-    private string PATH;
 
     private void Awake()
     {
@@ -23,16 +22,28 @@ public class CSVFileController: BubbleElement {
 
     public void Save(string[] arr)
     {
-        string delimiter = ",";
-        int length = arr.GetLength(0);
+        string str = "";
 
-        StringBuilder sb = new StringBuilder();
+        str += arr[5] + ",";
+        str += arr[4] + ",";
+        str += HebrewSwop(arr[3]) + ",";
+        str += arr[2] + ",";
+        str += HebrewSwop(arr[1]) + ",";
+        str += HebrewSwop(arr[0]) + "\n";
 
-        for (int index = 0; index < length; index++)
-            sb.AppendLine(string.Join(delimiter, arr[index]));
-
-       
         var CsvReadWrite = FindObjectOfType<CsvReadWrite>();
-        CsvReadWrite.Save(sb.ToString());
+        CsvReadWrite.Save(str);
+    }
+
+    private string HebrewSwop(string word)
+    {
+        string str = "";
+
+        for(int i = word.Length - 1; i >= 0; i--)
+        {
+            str += word[i];
+        }
+
+        return str;
     }
 }
