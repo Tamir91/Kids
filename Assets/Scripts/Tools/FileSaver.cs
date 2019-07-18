@@ -14,7 +14,7 @@ public class FileSaver : BubbleElement {
     // Public Variables
 
     //Privte Variables
-    private string Route = "https://project-1c5c7.firebaseio.com/";
+    
 
 
     #endregion
