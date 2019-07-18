@@ -69,6 +69,18 @@ namespace Mosframe {
             this.scrollView.totalItemCount = I.data.Count;
         }
 
+        public void InsertKidToView(int index, string kidData)
+        {
+            this.insertItem(index, new CustomData { name = kidData, value = "", on = true });
+        }
+
+        public void RemoveItem(int index)
+        {
+            Debug.Log("RemoveItem " + index);
+            I.data.RemoveAt(index);
+            scrollView.totalItemCount = I.data.Count;
+        }
+
         public void onClick_InsertButton () {
 
             this.insertItem( int.Parse(this.indexInput.text), new CustomData{ name=this.titleInput.text, value=this.valueInput.text, on=true } );

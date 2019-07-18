@@ -29,7 +29,7 @@ public class BubbleController : BubbleElement
     void Start()
     {
         //appState = AppState.AboutApp;
-        appState = AppState.AboutApp;
+        appState = AppState.Login;
         ChangeAppState(appState);
     }
 

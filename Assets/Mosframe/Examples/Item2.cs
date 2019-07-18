@@ -28,7 +28,7 @@ namespace Mosframe {
         protected override void OnEnable () {
 
             base.OnEnable();
-            this.button.onClick.AddListener( this.onClick );
+            button.onClick.AddListener( onClick );
         }
 
         protected override void OnDisable () {
@@ -47,15 +47,18 @@ namespace Mosframe {
         }
 
         public void onClick () {
+            Debug.Log("OnDeleteClick");
 
-            if( this.dataIndex == -1 ) return;
-            var data = RealTimeInsertItemExample.I.data[ this.dataIndex ];
+            if( dataIndex == -1 ) return;
+            var data = RealTimeInsertItemExample.I.data[ dataIndex ];
             data.on = !data.on;
 
-            this.updateItem();
+            var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+            realTimeInsertItemExample.RemoveItem(dataIndex);
+
+            updateItem();
         }
         
-
         private void updateItem () {
 
             if( this.dataIndex == -1 ) return;

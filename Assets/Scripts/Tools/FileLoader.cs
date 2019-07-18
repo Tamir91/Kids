@@ -1,6 +1,7 @@
 ﻿using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
+using Mosframe;
 using Proyecto26;
 using UnityEngine;
 
@@ -64,9 +65,13 @@ public class FileLoader : BubbleElement {
         RestClient.Get<Kid>(BaseRoute + "kids/" + Key + "key/" + keyPhoneNumber + ".json").Then(response =>
         {
             string text = "לאוד                דיינ          ןימ   ליג   החפשמה םש     םש\n\n";
+
+            var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+            realTimeInsertItemExample.InsertKidToView(0, response.ToString());
+            /*
             App.View
             .CabinetView
-            .SetTextAboutKids(text + response.ToString());
+            .SetTextAboutKids(text + response.ToString());*/
         });
     }
 
