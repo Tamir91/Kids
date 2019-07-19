@@ -14,6 +14,7 @@ namespace Mosframe {
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.SceneManagement;
+    using UnityEditor;
 
     /// <summary>
     /// RealTimeInsertItemExample
@@ -52,8 +53,8 @@ namespace Mosframe {
 
             // sample insert
 
-            this.insertItem( 0, new CustomData{ name="data00", value="value0", on=true } );
-            this.insertItem( 0, new CustomData{ name="data01", value="value1", on=true } );
+            //this.insertItem( 0, new CustomData{ name="data00", value="value0", on=true } );
+           //this.insertItem( 0, new CustomData{ name="data01", value="value1", on=true } );
 
             // register click event to InsertButton
 
@@ -77,8 +78,16 @@ namespace Mosframe {
         public void RemoveItem(int index)
         {
             Debug.Log("RemoveItem " + index);
-            I.data.RemoveAt(index);
-            scrollView.totalItemCount = I.data.Count;
+
+            //AndroidDialogAndToastBinding.instance.dialogBoxWithTwoButtons("מחיקה", "הקובץ ימחק", "אשר", "בטל", "", "delete_tag");
+
+            
+
+            if (EditorUtility.DisplayDialog("מחיקה", "הקובץ ימחק", "אשר", "בטל"))
+            {
+                I.data.RemoveAt(index);
+                scrollView.totalItemCount = I.data.Count;
+            }    
         }
 
         public void onClick_InsertButton () {
@@ -86,6 +95,7 @@ namespace Mosframe {
             this.insertItem( int.Parse(this.indexInput.text), new CustomData{ name=this.titleInput.text, value=this.valueInput.text, on=true } );
         }
 
+      
     }
 
    //#if UNITY_EDITOR

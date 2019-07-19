@@ -9,13 +9,13 @@ public class FileSaver : BubbleElement {
     #region Variable
     // Static Variables
     private static FileSaver Single;
-    private DatabaseReference reference;
+    
 
     // Public Variables
 
     //Privte Variables
-    
-
+    private string Route = "https://project-1c5c7.firebaseio.com/";
+    private DatabaseReference reference;
 
     #endregion
 

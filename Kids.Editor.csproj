@@ -352,6 +352,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Kids.Plugins.csproj">
+      <Project>{B55D0B71-3085-C762-1F28-E0C68A3F8C6A}</Project>
+      <Name>Kids.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="Kids.csproj">
       <Project>{B65FA54C-27A4-441C-D668-0AE864FA06B7}</Project>
       <Name>Kids</Name>

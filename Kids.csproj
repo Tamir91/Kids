@@ -283,6 +283,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Kids.Plugins.csproj">
+      <Project>{B55D0B71-3085-C762-1F28-E0C68A3F8C6A}</Project>
+      <Name>Kids.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\JSON\JSONObject.cs" />
     <Compile Include="Assets\JSON\VectorTemplates.cs" />
     <Compile Include="Assets\Mosframe\Common\HtmlColor.cs" />

@@ -10,7 +10,7 @@ public class FileLoader : BubbleElement {
     // Static Variables
     private static FileLoader Single;
     // Private Variables
-   
+    private string BaseRoute = "https://project-1c5c7.firebaseio.com/";
     private DatabaseReference DatabaseReference;
     private DependencyStatus dependencyStatus;
 
@@ -19,7 +19,6 @@ public class FileLoader : BubbleElement {
     private Admin CurrAdmin { get; set; }
 
     #endregion
-
 
     private void Awake()
     {
@@ -45,8 +44,6 @@ public class FileLoader : BubbleElement {
             }
         });
     }
-
-
 
     private void Start()
     {
@@ -76,15 +73,11 @@ public class FileLoader : BubbleElement {
     }
 
     /// <summary>
-    /// This function get all person from FireBase and set all into text in Cabinet View.
+    /// This function get all person from FireBase and set all into Scroll View in Cabinet View.
     /// </summary>
     /// <returns>IEnumerator</returns>
     public void GetAllKids(string key)
-    {
-        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(BaseRoute);
-        DatabaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-
-        string str = "לאוד                דיינ          ןימ   ליג   החפשמה םש     םש\n\n";
+    { 
         FirebaseDatabase.DefaultInstance
             .GetReference("").Child("kids").Child(key + "key")
             .GetValueAsync().ContinueWith(task => { 
@@ -95,25 +88,24 @@ public class FileLoader : BubbleElement {
                   }
                   else if (task.IsCompleted)
                   {
+                    int counter = 0;
                     Debug.Log("GetAllPersons::task.IsCompleted");
                     DataSnapshot DataSnapshot = task.Result;
                     var kids = DataSnapshot.Children;
 
-                    foreach(var pointer in kids)
+                    var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+                    foreach (var pointer in kids)
                     {
-                        str += pointer.Child("Email").Value.ToString() + "\t\t";
-                        str += pointer.Child("PhoneNumber").Value.ToString() + "\t\t";
-                        str += pointer.Child("Gender").Value.ToString() + "\t\t";
-                        str += pointer.Child("Age").Value.ToString() + "\t\t\t";
-                        str += pointer.Child("SecondName").Value.ToString() + "\t\t";
-                        str += pointer.Child("FirstName").Value.ToString() + "\n";        
-                    }
-
-                        App.View
-                        .CabinetView
-                        .SetTextAboutKids(str);
-
-                    Debug.Log(str);                    
+                        string str = "";
+                        str += pointer.Child("Email").Value.ToString() + "\t";
+                        str += pointer.Child("PhoneNumber").Value.ToString() + "\t";
+                        str += pointer.Child("Gender").Value.ToString() + "\t";
+                        str += pointer.Child("Age").Value.ToString() + "\t";
+                        str += pointer.Child("SecondName").Value.ToString() + "\t";
+                        str += pointer.Child("FirstName").Value.ToString() + "\t";
+                         
+                        realTimeInsertItemExample.InsertKidToView(counter++, str);
+                    }                    
                   }
             });
     }

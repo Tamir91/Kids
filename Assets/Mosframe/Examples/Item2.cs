@@ -14,11 +14,11 @@ namespace Mosframe {
     public class Item2 : UIBehaviour, IDynamicScrollViewItem 
     {
 	    private readonly Color[] colors = new Color[] {
-		    Color.cyan,
-		    Color.green,
+		    Color.grey,
+		    Color.white,
 	    };
 
-	    public Image    icon;
+	    //public Image    icon;
 	    public Text     title;
         public Button   button;
 	    public Image    background;
@@ -28,7 +28,7 @@ namespace Mosframe {
         protected override void OnEnable () {
 
             base.OnEnable();
-            button.onClick.AddListener( onClick );
+            this.button.onClick.AddListener( this.onClick );
         }
 
         protected override void OnDisable () {
@@ -51,7 +51,7 @@ namespace Mosframe {
 
             if( dataIndex == -1 ) return;
             var data = RealTimeInsertItemExample.I.data[ dataIndex ];
-            data.on = !data.on;
+            //data.on = !data.on;
 
             var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
             realTimeInsertItemExample.RemoveItem(dataIndex);
@@ -66,18 +66,14 @@ namespace Mosframe {
             var data = RealTimeInsertItemExample.I.data[ this.dataIndex ];
 
 		    this.background.color   = this.colors[Mathf.Abs(this.dataIndex) % this.colors.Length];
-		    this.icon.sprite        = Resources.Load<Sprite>( (Mathf.Abs(this.dataIndex) % 20 + 1).ToString("icon_00") );
+		    //this.icon.sprite        = Resources.Load<Sprite>( (Mathf.Abs(this.dataIndex) % 20 + 1).ToString("icon_00") );
 
             if( data.on ) {
-                this.title.text = data.name + "(" + data.value +")";
+                this.title.text = data.name;
             } else {
-                this.title.text = data.name + "(" + this.dataIndex.ToString("000") +")";
+                this.title.text = data.name;
             }
-
-            var buttonText = this.button.GetComponentInChildren<Text>();
-            if( buttonText != null ) {
-                buttonText.text = data.on ? "ON" : "OFF";
-            }
+            
         }
     }
 }
