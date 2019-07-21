@@ -57,6 +57,11 @@ public class BubbleController : BubbleElement
                     App.View
                         .SignUpView
                         .ShowSignUpPage();
+
+                   /* App.View
+                        .CabinetView
+                        .HideCabinetPage();*/
+
                     break;
                 }
             case AppState.Cabinet:
@@ -131,6 +136,7 @@ public class BubbleController : BubbleElement
                 }
             case BubbleNotification.KidsDownloaded:
                 {
+                    App.View.CabinetView.ClearFromKids();
                     App.View.CabinetView.SetKidsInScrollView(FindObjectOfType<FileLoader>().kidsList);
                     break;
                 }
@@ -143,7 +149,6 @@ public class BubbleController : BubbleElement
                         .UpdateCabinetViewWithKid(key, phoneNumber);
                     break;
                 }
-
             case BubbleNotification.DeleteKidByNumber:
                 {
                     var RealTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
@@ -153,7 +158,19 @@ public class BubbleController : BubbleElement
                     App.Model.CabinetModel.DeleteKid( key, phoneNumber);
                     break;
                 }
-            case BubbleNotification.OnSignUpInLoginClicked:
+            case BubbleNotification.EditKidByNumber:
+                {
+                    var RealTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+                    
+                    Kid Kid = RealTimeInsertItemExample.Kids[RealTimeInsertItemExample.editIndex];
+                    ChangeAppState (AppState.Signup);
+                    App.View.CabinetView.HideCabinetPage();
+
+                    var V = App.View.SignUpView;
+                    V.FillFieldsWithData(Kid.FirstName, Kid.SecondName, Kid.Age, Kid.Gender, Kid.PhoneNumber, Kid.Email);
+                    break;
+                }  
+             case BubbleNotification.OnSignUpInLoginClicked:
                 {
                     App.View
                         .LoginView

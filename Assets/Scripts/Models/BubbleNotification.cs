@@ -11,6 +11,7 @@ public class BubbleNotification : MonoBehaviour {
     public const string OnCreateExcelClicked = "create.excel.clicked";
     public const string LoadKidByNumber = "load.kid.clicked";
     public const string DeleteKidByNumber = "delete.kid.bynumber";
+    public const string EditKidByNumber = "edit.kid.bynumber";
     public const string CreateAccount = "create.account.clicked";
 
     // In LoginView

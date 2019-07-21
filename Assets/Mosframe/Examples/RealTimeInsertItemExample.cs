@@ -90,6 +90,8 @@ namespace Mosframe {
         {
             Debug.Log("EditItem " + index);
             editIndex = index;
+
+            App.Notify(BubbleNotification.EditKidByNumber, this);
         }
 
         public void OnDeleteClicked()

@@ -35,9 +35,114 @@ public class SignUpView : BubbleElement
 
     // Public Variables
     public GameObject SignUpCanvas;
+
+    public static string FirstName1
+    {
+        get
+        {
+            return FirstName;
+        }
+
+        set
+        {
+            FirstName = value;
+        }
+    }
+
+    public string BufferFirstName1
+    {
+        get
+        {
+            return BufferFirstName;
+        }
+
+        set
+        {
+            BufferFirstName = value;
+        }
+    }
+
+    public static string SecondName1
+    {
+        get
+        {
+            return SecondName;
+        }
+
+        set
+        {
+            SecondName = value;
+        }
+    }
+
+    public string BufferSecondName1
+    {
+        get
+        {
+            return BufferSecondName;
+        }
+
+        set
+        {
+            BufferSecondName = value;
+        }
+    }
+
+    public static string Gender1
+    {
+        get
+        {
+            return Gender;
+        }
+
+        set
+        {
+            Gender = value;
+        }
+    }
+
+    public static string PhoneNumber1
+    {
+        get
+        {
+            return PhoneNumber;
+        }
+
+        set
+        {
+            PhoneNumber = value;
+        }
+    }
+
+    public static string Age1
+    {
+        get
+        {
+            return Age;
+        }
+
+        set
+        {
+            Age = value;
+        }
+    }
+
+    public static string Email1
+    {
+        get
+        {
+            return Email;
+        }
+
+        set
+        {
+            Email = value;
+        }
+    }
+
     //public GameObject StartCanvas;
     // Test Variables
- 
+
     #endregion
 
     private void Awake()
@@ -73,12 +178,12 @@ public class SignUpView : BubbleElement
             }
             else if (templ.Length > 0 && templ.Length < LengthFirstName)
             {
-                templ = BufferFirstName.Remove(0, 1);
+                templ = BufferFirstName1.Remove(0, 1);
                 SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text = templ;
             }
 
             LengthFirstName = templ.Length;
-            BufferFirstName = templ;    
+            BufferFirstName1 = templ;    
     }
 
     private void HebrewSwopSecondName()
@@ -95,12 +200,12 @@ public class SignUpView : BubbleElement
         }
         else if (templ.Length > 0 && templ.Length < LengthSecondName)
         {
-            templ = BufferSecondName.Remove(0, 1);
+            templ = BufferSecondName1.Remove(0, 1);
             SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text = templ;
         }
 
         LengthSecondName = templ.Length;
-        BufferSecondName = templ;
+        BufferSecondName1 = templ;
     }
 
     public void ShowSignUpPage()
@@ -126,22 +231,22 @@ public class SignUpView : BubbleElement
         }
     } 
 
-    public string GetFirstName() => FirstName;
+    public string GetFirstName() => FirstName1;
 
-    public string GetSecondName() => SecondName;
+    public string GetSecondName() => SecondName1;
 
-    public string GetAge() => Age;
+    public string GetAge() => Age1;
 
-    public string GetGender() => Gender;
+    public string GetGender() => Gender1;
 
-    public string GetEmail() => Email;
+    public string GetEmail() => Email1;
 
-    public string GetPhoneNumber() => PhoneNumber;
+    public string GetPhoneNumber() => PhoneNumber1;
 
     public void OnSaveKidClicked()
     {
         SetData();
-        if (PhoneNumber == "")
+        if (PhoneNumber1 == "")
         {
             ChangePlaceholdersColor(Color.red);   
         }
@@ -161,16 +266,34 @@ public class SignUpView : BubbleElement
 
     private void SetData()
     {
-        FirstName = SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text;
-        SecondName = SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text;
+        FirstName1 = SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text;
+        SecondName1 = SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text;
 
-        Age = SignUpCanvas.transform.GetChild(2).GetComponent<InputField>().text;
+        Age1 = SignUpCanvas.transform.GetChild(2).GetComponent<InputField>().text;
 
-        Gender = SignUpCanvas.transform.GetChild(3).GetComponent<Dropdown>()
+        Gender1 = SignUpCanvas.transform.GetChild(3).GetComponent<Dropdown>()
             .options[SignUpCanvas.transform.GetChild(3).GetComponent<Dropdown>().value].text;
 
-        PhoneNumber = SignUpCanvas.transform.GetChild(4).GetComponent<InputField>().text;
-        Email = SignUpCanvas.transform.GetChild(5).GetComponent<InputField>().text;
+        PhoneNumber1 = SignUpCanvas.transform.GetChild(4).GetComponent<InputField>().text;
+        Email1 = SignUpCanvas.transform.GetChild(5).GetComponent<InputField>().text;
+    }
+
+    public void FillFieldsWithData(string FirstName, string SecondName, string Age, string Gender, string PhoneNumber, string Email)
+    {
+        
+        SignUpCanvas.transform.GetChild(0).GetComponent<InputField>().text = CorrectBug( FirstName);
+        SignUpCanvas.transform.GetChild(1).GetComponent<InputField>().text = CorrectBug(SecondName);
+        SignUpCanvas.transform.GetChild(2).GetComponent<InputField>().text = Age;
+
+        // SignUpCanvas.transform.GetChild(3).GetComponent<Dropdown>()
+        //.options[SignUpCanvas.transform.GetChild(3).GetComponent<Dropdown>().value] = 
+        SignUpCanvas.transform.GetChild(4).GetComponent<InputField>().text = PhoneNumber;
+        SignUpCanvas.transform.GetChild(5).GetComponent<InputField>().text = Email;
+    }
+
+    private string CorrectBug(string word)
+    {
+        return word.Remove(0, 1) + word[0];
     }
 
     public void CleanInputFields()

@@ -40,7 +40,7 @@ namespace Mosframe {
 
         public void OnUpdateItem( int index ) {
 
-            if( RealTimeInsertItemExample.I.data.Count > index ) {
+            if( RealTimeInsertItemExample.I.data.Count != index ) {
 
                 this.dataIndex = index;
                 this.updateItem();

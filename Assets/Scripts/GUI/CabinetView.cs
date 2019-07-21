@@ -35,6 +35,7 @@ public class CabinetView : BubbleElement {
   
     public void ShowCabinetPage()
     {
+        App.View.SignUpView.CleanInputFields();
         StartCoroutine(MoveCabinetPage());
     }
 
@@ -52,8 +53,20 @@ public class CabinetView : BubbleElement {
     }
 
     public void OnShowAllKidsClicked()
-    { 
+    {
+        ClearFromKids();
         App.Notify(BubbleNotification.LoadAllKids, this);
+    }
+
+    public void HideCabinetPage()
+    {
+        StartCoroutine(MoveBackCabinetPage());
+    }
+
+    public void ClearFromKids()
+    {
+        FindObjectOfType<RealTimeInsertItemExample>().Kids.Clear();
+        FindObjectOfType<RealTimeInsertItemExample>().data.Clear();
     }
 
     public void OnBackClicked()
