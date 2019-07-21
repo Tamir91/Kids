@@ -205,7 +205,7 @@
 			    itemObj.SetActive(true);
 			
 			    var item = itemObj.GetComponent<IDynamicScrollViewItem>();
-                if( item != null ) item.onUpdateItem( index );
+                if( item != null ) item.OnUpdateItem( index );
 		    }
 	    }
 

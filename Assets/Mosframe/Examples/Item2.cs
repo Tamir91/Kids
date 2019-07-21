@@ -20,24 +20,25 @@ namespace Mosframe {
 
 	    //public Image    icon;
 	    public Text     title;
-        public Button   button;
+        public Button   DeleteItembutton;
+        public Button   EditItembutton;
 	    public Image    background;
 
         private int     dataIndex = -1;
 
         protected override void OnEnable () {
-
             base.OnEnable();
-            this.button.onClick.AddListener( this.onClick );
+            DeleteItembutton.onClick.AddListener( OnDeleteClick );
+            EditItembutton.onClick.AddListener(OnEditClick);
         }
 
         protected override void OnDisable () {
-
             base.OnDisable();
-            this.button.onClick.RemoveListener( this.onClick );
+            DeleteItembutton.onClick.RemoveListener( OnDeleteClick );
+            EditItembutton.onClick.RemoveListener( OnDeleteClick );
         }
 
-        public void onUpdateItem( int index ) {
+        public void OnUpdateItem( int index ) {
 
             if( RealTimeInsertItemExample.I.data.Count > index ) {
 
@@ -46,26 +47,30 @@ namespace Mosframe {
             }
         }
 
-        public void onClick () {
+        public void OnDeleteClick () {
             Debug.Log("OnDeleteClick");
 
             if( dataIndex == -1 ) return;
-            var data = RealTimeInsertItemExample.I.data[ dataIndex ];
-            //data.on = !data.on;
 
             var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
             realTimeInsertItemExample.RemoveItem(dataIndex);
+        }
 
-            updateItem();
+        public void OnEditClick() {
+            Debug.Log("OnEditClick");
+
+            if (dataIndex == -1) return;
+            var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+            realTimeInsertItemExample.EditItem(dataIndex);
         }
         
         private void updateItem () {
 
             if( this.dataIndex == -1 ) return;
 
-            var data = RealTimeInsertItemExample.I.data[ this.dataIndex ];
+            var data = RealTimeInsertItemExample.I.data[ dataIndex ];
 
-		    this.background.color   = this.colors[Mathf.Abs(this.dataIndex) % this.colors.Length];
+		    //this.background.color   = this.colors[Mathf.Abs(this.dataIndex) % this.colors.Length];
 		    //this.icon.sprite        = Resources.Load<Sprite>( (Mathf.Abs(this.dataIndex) % 20 + 1).ToString("icon_00") );
 
             if( data.on ) {

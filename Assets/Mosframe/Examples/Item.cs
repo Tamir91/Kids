@@ -23,7 +23,7 @@ namespace Mosframe {
 	    public Text  title;
 	    public Image background;
 
-        public void onUpdateItem( int index ) {
+        public void OnUpdateItem( int index ) {
 
 		    this.title.text         = string.Format("Name{0:d3}", (index + 1) );
 		    this.background.color   = this.colors[Mathf.Abs(index) % this.colors.Length];

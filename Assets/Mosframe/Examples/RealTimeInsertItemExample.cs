@@ -14,14 +14,24 @@ namespace Mosframe {
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.SceneManagement;
-    using UnityEditor;
 
+    
     /// <summary>
     /// RealTimeInsertItemExample
     /// </summary>
-    public class RealTimeInsertItemExample : MonoBehaviour {
+    public class RealTimeInsertItemExample : BubbleElement {
 
         public static RealTimeInsertItemExample I;
+
+        private int deleteIndex;
+        private int editIndex;
+
+
+        //test 
+        public int X;
+        public int Y;
+        public int W;
+        public int H;
 
         public class CustomData {
 
@@ -48,7 +58,6 @@ namespace Mosframe {
             I = this;
         }
 
-
         private void Start() {
 
             // sample insert
@@ -58,7 +67,7 @@ namespace Mosframe {
 
             // register click event to InsertButton
 
-            this.insertButton.onClick.AddListener( this.onClick_InsertButton );
+            this.insertButton.onClick.AddListener( this.OnClick_InsertButton );
         }
 
         public void insertItem( int index, CustomData data ) {
@@ -67,35 +76,45 @@ namespace Mosframe {
 
             I.data.Insert( index, data );
 
-            this.scrollView.totalItemCount = I.data.Count;
+            scrollView.totalItemCount = I.data.Count;
         }
 
         public void InsertKidToView(int index, string kidData)
         {
-            this.insertItem(index, new CustomData { name = kidData, value = "", on = true });
+            insertItem(index, new CustomData { name = kidData, value = "", on = true });
         }
 
         public void RemoveItem(int index)
         {
             Debug.Log("RemoveItem " + index);
-
-            //AndroidDialogAndToastBinding.instance.dialogBoxWithTwoButtons("מחיקה", "הקובץ ימחק", "אשר", "בטל", "", "delete_tag");
-
-            
-
-            if (EditorUtility.DisplayDialog("מחיקה", "הקובץ ימחק", "אשר", "בטל"))
-            {
-                I.data.RemoveAt(index);
-                scrollView.totalItemCount = I.data.Count;
-            }    
+            deleteIndex = index;
+            App.View.CabinetView.ShowDeleteDialog();
         }
 
-        public void onClick_InsertButton () {
+        public void EditItem(int index)
+        {
+            Debug.Log("EditItem " + index);
+            editIndex = index;
+        }
 
+        public void OnDeleteClicked()
+        {
+            I.data.RemoveAt(deleteIndex);
+            scrollView.totalItemCount = I.data.Count;
+
+            App.View.CabinetView.HideDeleteDialog();
+        }
+
+        public void OnDenyDeletingClicked()
+        {
+            App.View.CabinetView.HideDeleteDialog();
+        }
+
+        public void OnClick_InsertButton () {
+#if UNITY_ANDROID
             this.insertItem( int.Parse(this.indexInput.text), new CustomData{ name=this.titleInput.text, value=this.valueInput.text, on=true } );
+#endif
         }
-
-      
     }
 
    //#if UNITY_EDITOR

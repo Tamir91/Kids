@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,5 +88,15 @@ public class CabinetView : BubbleElement {
     public void OnCreateExcelClicked()
     {
         App.Notify(BubbleNotification.OnCreateExcelClicked, this);
+    }
+
+    public void ShowDeleteDialog()
+    {
+        CabinetCanvas.transform.GetChild(7).gameObject.SetActive(true);
+    }
+
+    internal void HideDeleteDialog()
+    {
+        CabinetCanvas.transform.GetChild(7).gameObject.SetActive(false);
     }
 }

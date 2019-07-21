@@ -1,10 +1,10 @@
-WindowsStandalone
+Android
 PlayerPath?
-C:/Users/Arik/Desktop/KidWithExcel/KidsDataBase.exe
+C:/Users/Arik/Desktop/kids-landscape.apk
 SceneListBegin?
 Assets/Scenes/MainScene.unity
 SceneListEnd?
-289afe3bd906deca2dbdff2324568e70 Assembly-CSharp.dll:Mosframe.RealTimeInsertItemExample
+244dffea97ee84dd720047898a0dc67f Assembly-CSharp.dll:Mosframe.RealTimeInsertItemExample
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 4b12dd839b2293f8457cd67cc3610b85 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -126,7 +126,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BubbleNotification
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CabinetModel
-97feac068b344d379e6510cadae835b9 Assembly-CSharp.dll:Mosframe.Item2
+d194ccb9f0d4b1c97c450495a5416471 Assembly-CSharp.dll:Mosframe.Item2
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 65d507fb237a9028fbc8f11ffd07c956 Assembly-CSharp.dll:Mosframe.RealTimeInsertItemExample2
@@ -170,7 +170,9 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.FileLoader
 8da992c3f994a37ce6c03c23132cd895 Assembly-CSharp.dll:Mosframe.ScrollbarHandleSize
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.GuiManager
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BubbleController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LoginModel
 36c0e837e4779f8dc82f75a558f35b5d Assembly-CSharp.dll:Mosframe.DynamicHScrollView
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.AndroidDialogAndToastBinding
