@@ -63,4 +63,10 @@ public class CabinetModel : BubbleElement {
         var loader = FindObjectOfType<FileLoader>();
         loader.LoadAllKidsInExcelstring(key);
     }
+
+    public void DeleteKid(string key, string phoneNumber)
+    {
+        FileSaver FileSaver = FindObjectOfType<FileSaver>();
+        FileSaver.DeleteKidFromFireBase(key, phoneNumber);
+    }
 }

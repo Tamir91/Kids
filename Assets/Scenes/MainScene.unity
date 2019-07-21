@@ -485,7 +485,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 44900165}
   m_HandleRect: {fileID: 545824522}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3730,7 +3730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: {fileID: 1251302759}
-  button: {fileID: 1972885971}
+  DeleteItembutton: {fileID: 1972885971}
+  EditItembutton: {fileID: 245427581}
   background: {fileID: 708865753}
 --- !u!114 &708865753
 MonoBehaviour:
@@ -5571,10 +5572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32935001cd421d4abc861fac1fdd141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  X: 0
-  Y: 0
-  W: 0
-  H: 0
+  editIndex: 0
+  Kids: []
   scrollView: {fileID: 1638366203}
   indexInput: {fileID: 289060620}
   titleInput: {fileID: 261584198}
@@ -8389,7 +8388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000003143219}
+  m_AnchoredPosition: {x: 0, y: -0.000015250328}
   m_SizeDelta: {x: -21.480011, y: 202.1}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1633924099
@@ -8458,6 +8457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8180eba0bf25f47993296fc26f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kidsList: []
 --- !u!114 &1633924104
 MonoBehaviour:
   m_ObjectHideFlags: 0

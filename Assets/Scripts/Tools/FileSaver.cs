@@ -53,4 +53,10 @@ public class FileSaver : BubbleElement {
         //string json = JsonUtility.ToJson(admin);
         //reference.Child("admin").Child(admin.UserName + admin.UserPassword).SetRawJsonValueAsync(json);
     }
+
+    public void DeleteKidFromFireBase(string key, string phoneNumber)
+    {
+        Debug.Log("DeleteKidFromFireBase::" + phoneNumber);
+        RestClient.Delete(Route + "kids/" + key + "key" + "/" + phoneNumber + ".json");
+    }
 }

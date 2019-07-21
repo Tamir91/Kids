@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mosframe;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,16 +74,22 @@ public class CabinetView : BubbleElement {
         }
     }
 
-    public void SetTextAboutKids(string text)
+    public void SetKidsInScrollView(List<Kid> Kids)
     {
-        CabinetCanvas.transform.GetChild(0).GetComponent<Text>().text = text;
-        this.TextWithKids = text;
+        int counter = 0;
+        var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+        realTimeInsertItemExample.SetKidsInList(Kids);
+
+        foreach (Kid Kid in Kids)
+        {
+            realTimeInsertItemExample.InsertKidToView(counter++, Kid.ToString());
+        }
     }
 
     public void OnFindKidClicked()
     {
         SearchField = CabinetCanvas.transform.GetChild(1).GetComponent<InputField>().text;
-        App.Notify(BubbleNotification.LoadKid, this);
+        App.Notify(BubbleNotification.LoadKidByNumber, this);
     }
 
     public void OnCreateExcelClicked()

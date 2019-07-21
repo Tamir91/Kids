@@ -3,6 +3,7 @@ using Firebase.Database;
 using Firebase.Unity.Editor;
 using Mosframe;
 using Proyecto26;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FileLoader : BubbleElement {
@@ -13,10 +14,10 @@ public class FileLoader : BubbleElement {
     private string BaseRoute = "https://project-1c5c7.firebaseio.com/";
     private DatabaseReference DatabaseReference;
     private DependencyStatus dependencyStatus;
-
+    private Admin CurrAdmin { get; set; }
 
     // Public Variables
-    private Admin CurrAdmin { get; set; }
+    public List<Kid> kidsList = new List<Kid>();
 
     #endregion
 
@@ -77,7 +78,7 @@ public class FileLoader : BubbleElement {
     /// </summary>
     /// <returns>IEnumerator</returns>
     public void GetAllKids(string key)
-    { 
+    {
         FirebaseDatabase.DefaultInstance
             .GetReference("").Child("kids").Child(key + "key")
             .GetValueAsync().ContinueWith(task => { 
@@ -88,7 +89,6 @@ public class FileLoader : BubbleElement {
                   }
                   else if (task.IsCompleted)
                   {
-                    int counter = 0;
                     Debug.Log("GetAllPersons::task.IsCompleted");
                     DataSnapshot DataSnapshot = task.Result;
                     var kids = DataSnapshot.Children;
@@ -96,6 +96,18 @@ public class FileLoader : BubbleElement {
                     var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
                     foreach (var pointer in kids)
                     {
+                        string FirstName = pointer.Child("FirstName").Value.ToString();
+                        string SecondName = pointer.Child("SecondName").Value.ToString();
+                        string Age = pointer.Child("Age").Value.ToString();
+                        string Gender = pointer.Child("Gender").Value.ToString();
+                        string PhoneNumber = pointer.Child("PhoneNumber").Value.ToString();
+                        string Email = pointer.Child("Email").Value.ToString();
+
+                        Kid Kid = new Kid(FirstName, SecondName, Age, Gender, PhoneNumber, Email);
+
+                        kidsList.Add(Kid);
+
+                        /*
                         string str = "";
                         str += pointer.Child("Email").Value.ToString() + "\t";
                         str += pointer.Child("PhoneNumber").Value.ToString() + "\t";
@@ -105,7 +117,10 @@ public class FileLoader : BubbleElement {
                         str += pointer.Child("FirstName").Value.ToString() + "\t";
                          
                         realTimeInsertItemExample.InsertKidToView(counter++, str);
-                    }                    
+                        */
+                    }
+
+                    App.Notify(BubbleNotification.KidsDownloaded, this);
                   }
             });
     }
@@ -141,7 +156,7 @@ public class FileLoader : BubbleElement {
                         arr[4] = pointer.Child("PhoneNumber").Value.ToString();
                         arr[5] = pointer.Child("Email").Value.ToString();
 
-                        CsvController.Save(arr);
+                        CsvController.Save(arr);       
                     }
                 }
             });

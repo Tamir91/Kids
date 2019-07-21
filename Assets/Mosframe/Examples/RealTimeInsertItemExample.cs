@@ -24,14 +24,7 @@ namespace Mosframe {
         public static RealTimeInsertItemExample I;
 
         private int deleteIndex;
-        private int editIndex;
-
-
-        //test 
-        public int X;
-        public int Y;
-        public int W;
-        public int H;
+        public int editIndex;
 
         public class CustomData {
 
@@ -41,12 +34,9 @@ namespace Mosframe {
         }
 
         public List<CustomData>     data = new List<CustomData>();
+        public List<Kid> Kids = new List<Kid>();
 
         public DynamicScrollView    scrollView;
-        //public  int                 dataIndex    = 1;
-        //public  string              dataName     = "Insert01";
-        //public  int                 dataValue    = 100;
-
 
         public InputField           indexInput;
         public InputField           titleInput;
@@ -68,6 +58,11 @@ namespace Mosframe {
             // register click event to InsertButton
 
             this.insertButton.onClick.AddListener( this.OnClick_InsertButton );
+        }
+
+        public void SetKidsInList(List<Kid> Kids)
+        {
+            this.Kids = Kids;
         }
 
         public void insertItem( int index, CustomData data ) {
@@ -99,8 +94,12 @@ namespace Mosframe {
 
         public void OnDeleteClicked()
         {
-            I.data.RemoveAt(deleteIndex);
+            I.data.RemoveAt(deleteIndex);//Delete from dataList
             scrollView.totalItemCount = I.data.Count;
+
+            I.Kids.RemoveAt(deleteIndex);//Delete from List
+
+            App.Notify(BubbleNotification.DeleteKidByNumber, this);
 
             App.View.CabinetView.HideDeleteDialog();
         }

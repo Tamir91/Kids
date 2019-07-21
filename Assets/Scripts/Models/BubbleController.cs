@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Mosframe;
+using UnityEngine;
 
 public class BubbleController : BubbleElement
 {
@@ -128,13 +129,28 @@ public class BubbleController : BubbleElement
                         .UpdateCabinetViewWithAllKids(key);
                     break;
                 }
-            case BubbleNotification.LoadKid:
+            case BubbleNotification.KidsDownloaded:
+                {
+                    App.View.CabinetView.SetKidsInScrollView(FindObjectOfType<FileLoader>().kidsList);
+                    break;
+                }
+            case BubbleNotification.LoadKidByNumber:
                 {
                     string key = CurrAdmin.UserName + CurrAdmin.UserPassword;
                     string phoneNumber = App.View.CabinetView.SearchField;
                     App.Model
                         .CabinetModel
                         .UpdateCabinetViewWithKid(key, phoneNumber);
+                    break;
+                }
+
+            case BubbleNotification.DeleteKidByNumber:
+                {
+                    var RealTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+                    string key = CurrAdmin.UserName + CurrAdmin.UserPassword;
+                    string phoneNumber = RealTimeInsertItemExample.Kids[RealTimeInsertItemExample.editIndex].PhoneNumber;
+
+                    App.Model.CabinetModel.DeleteKid( key, phoneNumber);
                     break;
                 }
             case BubbleNotification.OnSignUpInLoginClicked:
