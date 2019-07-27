@@ -1,10 +1,10 @@
-Android
+WindowsStandalone
 PlayerPath?
-C:/Users/Arik/Desktop/kids-landscape.apk
+C:/Users/Arik/Desktop/Kid/KidDataBase.exe
 SceneListBegin?
 Assets/Scenes/MainScene.unity
 SceneListEnd?
-fc1770de171e333f5e83c61065dff970 Assembly-CSharp.dll:Mosframe.RealTimeInsertItemExample
+0d6daa03bde6b772d48f27b8dc4953a5 Assembly-CSharp.dll:Mosframe.RealTimeInsertItemExample
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 4b12dd839b2293f8457cd67cc3610b85 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset

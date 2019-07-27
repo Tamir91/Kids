@@ -63,12 +63,6 @@ public class CabinetView : BubbleElement {
         StartCoroutine(MoveBackCabinetPage());
     }
 
-    public void ClearFromKids()
-    {
-        FindObjectOfType<RealTimeInsertItemExample>().Kids.Clear();
-        FindObjectOfType<RealTimeInsertItemExample>().data.Clear();
-    }
-
     public void OnBackClicked()
     {
         StartCoroutine(MoveBackCabinetPage());
@@ -87,13 +81,22 @@ public class CabinetView : BubbleElement {
         }
     }
 
+    public void ClearFromKids()
+    {
+        FindObjectOfType<RealTimeInsertItemExample>().Kids.Clear();
+        FindObjectOfType<RealTimeInsertItemExample>().data.Clear();
+    }
+
     public void SetKidsInScrollView(List<Kid> Kids)
     {
         int counter = 0;
+        var list = new List<Kid>(Kids);
+        
         var realTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
-        realTimeInsertItemExample.SetKidsInList(Kids);
+        Debug.Log("SetKidsInScrollView: list count = " + list.Count);
+        realTimeInsertItemExample.SetKidsInList(list);
 
-        foreach (Kid Kid in Kids)
+        foreach (Kid Kid in list)
         {
             realTimeInsertItemExample.InsertKidToView(counter++, Kid.ToString());
         }
@@ -115,7 +118,7 @@ public class CabinetView : BubbleElement {
         CabinetCanvas.transform.GetChild(7).gameObject.SetActive(true);
     }
 
-    internal void HideDeleteDialog()
+    public void HideDeleteDialog()
     {
         CabinetCanvas.transform.GetChild(7).gameObject.SetActive(false);
     }

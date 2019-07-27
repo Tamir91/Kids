@@ -106,23 +106,17 @@ public class FileLoader : BubbleElement {
                         Kid Kid = new Kid(FirstName, SecondName, Age, Gender, PhoneNumber, Email);
 
                         kidsList.Add(Kid);
-
-                        /*
-                        string str = "";
-                        str += pointer.Child("Email").Value.ToString() + "\t";
-                        str += pointer.Child("PhoneNumber").Value.ToString() + "\t";
-                        str += pointer.Child("Gender").Value.ToString() + "\t";
-                        str += pointer.Child("Age").Value.ToString() + "\t";
-                        str += pointer.Child("SecondName").Value.ToString() + "\t";
-                        str += pointer.Child("FirstName").Value.ToString() + "\t";
-                         
-                        realTimeInsertItemExample.InsertKidToView(counter++, str);
-                        */
                     }
+                    Debug.Log("FileLoader:: Kids = " + kidsList.Count);
 
                     App.Notify(BubbleNotification.KidsDownloaded, this);
                   }
             });
+    }
+
+    public void ClearKidList()
+    {
+        kidsList.Clear();
     }
 
     public void LoadAllKidsInExcelstring(string key)

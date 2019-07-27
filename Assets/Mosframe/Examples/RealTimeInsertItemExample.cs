@@ -23,7 +23,7 @@ namespace Mosframe {
 
         public static RealTimeInsertItemExample I;
 
-        private int deleteIndex;
+        public int deleteIndex;
         public int editIndex;
 
         public class CustomData {
@@ -34,7 +34,7 @@ namespace Mosframe {
         }
 
         public List<CustomData>     data = new List<CustomData>();
-        public List<Kid> Kids = new List<Kid>();
+        public List<Kid>            Kids;
 
         public DynamicScrollView    scrollView;
 
@@ -49,26 +49,15 @@ namespace Mosframe {
         }
 
         private void Start() {
-
-            // sample insert
-
-            //this.insertItem( 0, new CustomData{ name="data00", value="value0", on=true } );
-           //this.insertItem( 0, new CustomData{ name="data01", value="value1", on=true } );
-
-            // register click event to InsertButton
-
             this.insertButton.onClick.AddListener( this.OnClick_InsertButton );
         }
 
         public void SetKidsInList(List<Kid> Kids)
         {
-            this.Kids = Kids;
+            this.Kids = new List<Kid>(Kids);
         }
 
         public void insertItem( int index, CustomData data ) {
-
-            // set custom data
-
             I.data.Insert( index, data );
 
             scrollView.totalItemCount = I.data.Count;
@@ -81,7 +70,7 @@ namespace Mosframe {
 
         public void RemoveItem(int index)
         {
-            Debug.Log("RemoveItem " + index);
+            Debug.Log("RemoveItem" + index);
             deleteIndex = index;
             App.View.CabinetView.ShowDeleteDialog();
         }
@@ -94,16 +83,37 @@ namespace Mosframe {
             App.Notify(BubbleNotification.EditKidByNumber, this);
         }
 
+        public void DeleteAllItems()
+        {
+            data.Clear();
+            Kids.Clear();
+            scrollView.totalItemCount = I.data.Count;
+        }
+
         public void OnDeleteClicked()
         {
-            I.data.RemoveAt(deleteIndex);//Delete from dataList
-            scrollView.totalItemCount = I.data.Count;
-
-            I.Kids.RemoveAt(deleteIndex);//Delete from List
-
-            App.Notify(BubbleNotification.DeleteKidByNumber, this);
-
             App.View.CabinetView.HideDeleteDialog();
+            App.Notify(BubbleNotification.DeleteKidByNumber, this);
+        }
+
+        public void DeleteKidFromLists()
+        {
+            if(data.Count == 0 || Kids.Count == 0)
+            {
+                Debug.Log("---Error---");
+                Debug.Log("DeleteKidFromLists::Can't delete kid!!");
+                Debug.Log("DeleteKidFromLists::Can't delete kid!!");
+                Debug.Log("RealTimeInsertItemExample::data length = " + data.Count);
+                Debug.Log("RealTimeInsertItemExample:: Kids length = " + Kids.Count);
+                Debug.Log("---Error---");
+            }
+            else
+            {
+                I.data.RemoveAt(deleteIndex);//Delete from dataList
+                I.Kids.RemoveAt(deleteIndex);//Delete from List
+                scrollView.totalItemCount = I.data.Count;
+            }
+            
         }
 
         public void OnDenyDeletingClicked()
@@ -112,6 +122,7 @@ namespace Mosframe {
         }
 
         public void OnClick_InsertButton () {
+
 #if UNITY_ANDROID
             this.insertItem( int.Parse(this.indexInput.text), new CustomData{ name=this.titleInput.text, value=this.valueInput.text, on=true } );
 #endif

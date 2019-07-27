@@ -1,4 +1,5 @@
 ﻿using Mosframe;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BubbleController : BubbleElement
@@ -10,6 +11,8 @@ public class BubbleController : BubbleElement
     private enum AppState { AboutApp, Login, Signup, Cabinet };
     private AppState appState;
     private Admin CurrAdmin;
+
+    private FileLoader FileLoader;
 
     // Public methods
 
@@ -29,9 +32,11 @@ public class BubbleController : BubbleElement
 
     void Start()
     {
-        //appState = AppState.AboutApp;
-        appState = AppState.Login;
+        appState = AppState.AboutApp;
+        //appState = AppState.Login;
         ChangeAppState(appState);
+
+        FileLoader = FindObjectOfType<FileLoader>();
     }
 
     void ChangeAppState(AppState appState)
@@ -97,7 +102,8 @@ public class BubbleController : BubbleElement
                     Debug.Log("BubbleController" + p_event_path);
                     appState = AppState.Signup;
                     ChangeAppState(appState);
-
+                    //Next line in test!!
+                    FindObjectOfType<RealTimeInsertItemExample>().DeleteAllItems();
                     break;
                 }
             case BubbleNotification.OnSaveKidClicked:
@@ -132,12 +138,20 @@ public class BubbleController : BubbleElement
                     App.Model
                         .CabinetModel
                         .UpdateCabinetViewWithAllKids(key);
+
+                    FindObjectOfType<RealTimeInsertItemExample>().DeleteAllItems();
                     break;
                 }
             case BubbleNotification.KidsDownloaded:
                 {
+                    
                     App.View.CabinetView.ClearFromKids();
-                    App.View.CabinetView.SetKidsInScrollView(FindObjectOfType<FileLoader>().kidsList);
+                    List<Kid> list = new List<Kid>(FileLoader.kidsList);
+
+                    Debug.Log("BubbleNotification.KidsDownloaded: list count = " + list);
+                    App.View.CabinetView.SetKidsInScrollView(list);
+
+                    FileLoader.ClearKidList();
                     break;
                 }
             case BubbleNotification.LoadKidByNumber:
@@ -147,15 +161,28 @@ public class BubbleController : BubbleElement
                     App.Model
                         .CabinetModel
                         .UpdateCabinetViewWithKid(key, phoneNumber);
+
+                    FindObjectOfType<RealTimeInsertItemExample>().DeleteAllItems();
                     break;
                 }
             case BubbleNotification.DeleteKidByNumber:
                 {
                     var RealTimeInsertItemExample = FindObjectOfType<RealTimeInsertItemExample>();
+                    if(RealTimeInsertItemExample.Kids.Count == 0)
+                    {
+                        Debug.Log("ERROR");
+                        Debug.Log("BubbleNotification.DeleteKidByNumber length = 0");
+                    }
+                    else{
+                        Debug.Log("RealTimeInsertItemExample.Kids length = " + RealTimeInsertItemExample.Kids.Count);
+                    }
+                    Debug.Log("RealTimeInsertItemExample.deleteIndex  = " + RealTimeInsertItemExample.deleteIndex);
+                    string phoneNumber = RealTimeInsertItemExample.Kids[RealTimeInsertItemExample.deleteIndex].PhoneNumber;
                     string key = CurrAdmin.UserName + CurrAdmin.UserPassword;
-                    string phoneNumber = RealTimeInsertItemExample.Kids[RealTimeInsertItemExample.editIndex].PhoneNumber;
 
                     App.Model.CabinetModel.DeleteKid( key, phoneNumber);
+                    RealTimeInsertItemExample.DeleteKidFromLists();
+                    
                     break;
                 }
             case BubbleNotification.EditKidByNumber:

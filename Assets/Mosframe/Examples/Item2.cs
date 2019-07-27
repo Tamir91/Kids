@@ -70,15 +70,10 @@ namespace Mosframe {
 
             var data = RealTimeInsertItemExample.I.data[ dataIndex ];
 
-		    //this.background.color   = this.colors[Mathf.Abs(this.dataIndex) % this.colors.Length];
-		    //this.icon.sprite        = Resources.Load<Sprite>( (Mathf.Abs(this.dataIndex) % 20 + 1).ToString("icon_00") );
+            //this.background.color   = this.colors[Mathf.Abs(this.dataIndex) % this.colors.Length];
+            //this.icon.sprite        = Resources.Load<Sprite>( (Mathf.Abs(this.dataIndex) % 20 + 1).ToString("icon_00") );
 
-            if( data.on ) {
-                this.title.text = data.name;
-            } else {
-                this.title.text = data.name;
-            }
-            
+            this.title.text = data.name;  
         }
     }
 }
